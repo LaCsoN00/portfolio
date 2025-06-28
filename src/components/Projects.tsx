@@ -12,7 +12,7 @@ const projects = [
     {
         id: 1,
         title: 'Gestionnaire de projets',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
+        description: 'Application de gestion de projets',
         technologies: ['Next.js', 'Typescript', 'Tailwind CSS', 'HTML'],
         demoLink: 'https://cpm-app.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/cpm-app.git',
@@ -21,7 +21,7 @@ const projects = [
     {
         id: 2,
         title: 'Plateforme gestion de factures',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
+        description: 'Application de gestion de factures',
         technologies: ['Next.js', 'TypeScript', 'Prisma'],
         demoLink: 'https://gestion-facture-ten.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/gestion_facture.git',
@@ -30,7 +30,7 @@ const projects = [
     {
         id: 3,
         title: 'Plateforme gestion de stock',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
+        description: 'Application de gestion de stock',
         technologies: ['Next.js', 'Prisma', 'Typescript'],
         demoLink: 'https://gestion-stock-cyan.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/gestion_stock.git',
@@ -39,7 +39,7 @@ const projects = [
     {
         id: 4,
         title: 'Concepteur de CV',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
+        description: 'Application de conception de CV',
         technologies: ['Typescript', 'Javascript', 'CSS'],
         demoLink: 'https://cv-builder-sandy-two.vercel.app/',
         repoLink: 'https://github.com/LaCsoN00/cv_builder.git',
@@ -48,9 +48,9 @@ const projects = [
     {
         id: 5,
         title: 'Portfolio',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
+        description: 'Application de portfolio',
         technologies: ['Typescript', 'Javascript', 'HTML', 'CSS'],
-        demoLink: 'https://portfolio-alpha-topaz-2gbpq1vuof.vercel.app',
+        demoLink: 'https://portfolio-omega-tan-276fkfjquw.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/portfolio.git',
         image: img5,
     },
