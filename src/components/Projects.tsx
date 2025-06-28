@@ -5,7 +5,6 @@ import img2 from '../assets/projects/2.png';
 import img3 from '../assets/projects/3.avif';
 import img4 from '../assets/projects/4.avif';
 import img5 from '../assets/projects/5.jpg';
-import img6 from '../assets/projects/6.png';
 import { Github, Video } from "lucide-react";
 
 
