@@ -1,4 +1,4 @@
-import { Container, Facebook, Mail, MessageCircle } from "lucide-react"
+import { Container, Facebook, Mail } from "lucide-react"
 
 const Footer = () => {
     return (
