@@ -51,18 +51,9 @@ const projects = [
         title: 'Portfolio',
         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
         technologies: ['Typescript', 'Javascript', 'HTML', 'CSS'],
-        demoLink: '',
-        repoLink: '',
+        demoLink: 'https://portfolio-alpha-topaz-2gbpq1vuof.vercel.app',
+        repoLink: 'https://github.com/LaCsoN00/portfolio.git',
         image: img5,
-    },
-    {
-        id: 6,
-        title: 'Analyseur de sentiment',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae magni deserunt debitis recusandae ab harum totam, eum facilis et ratione officia ut inventore aspernatur',
-        technologies: ['Python', 'Flask', 'NLTK'],
-        demoLink: '#',
-        repoLink: '#',
-        image: img6,
     },
 ];
 
