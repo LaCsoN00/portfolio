@@ -5,6 +5,7 @@ import img2 from '../assets/projects/2.png';
 import img3 from '../assets/projects/3.avif';
 import img4 from '../assets/projects/4.avif';
 import img5 from '../assets/projects/5.jpg';
+import img6 from '../assets/projects/6.png';
 import { Github, Video } from "lucide-react";
 
 
@@ -53,6 +54,15 @@ const projects = [
         demoLink: 'https://portfolio-omega-tan-276fkfjquw.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/portfolio.git',
         image: img5,
+    },
+    {
+        id: 6,
+        title: 'Scolibus',
+        description: 'Application de transport scolaire',
+        technologies: ['Typescript', 'Javascript', 'HTML', 'CSS'],
+        demoLink: 'https://scolibus.vercel.app',
+        repoLink: 'https://github.com/LaCsoN00/Scolibus.git',
+        image: img6,
     },
 ];
 
