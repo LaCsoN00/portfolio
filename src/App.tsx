@@ -9,17 +9,14 @@ export default function App() {
   return (
     <div>
 
-      <div className="p-5 md:px-[15%]">
-        <Navbar />
-        <Home />
-      </div>
+      <Navbar />
+      <Home />
 
       <About />
 
-      <div className="p-5 md:px-[15%]">
-        <Experiences />
-        <Projects/>
-      </div>
+      <Experiences />
+
+      <Projects />
 
       <Footer/>
 

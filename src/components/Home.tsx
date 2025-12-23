@@ -3,10 +3,10 @@ import img from '../assets/img.jpg'
 
 const Home = () => {
     return (
-        <div id="Home" className="flex flex-col-reverse md:flex-row justify-center items-center md:my-32 my-10">
+        <div id="Home" className="flex flex-col-reverse md:flex-row justify-center items-center py-40">
 
             <div className="flex flex-col ">
-                <h1 className="text-5xl md:text-6xl font-bold text-center md:text-left mt-4 md:mt-0">
+                <h1 className="text-5xl md:text-6xl font-bold text-center md:text-left mt-4 md:mt-0 mb-10">
                     Bonjour , <br /> je suis {" "}
                     <span className="text-accent">Luc-Jeeffel</span>
                 </h1>
@@ -24,7 +24,7 @@ const Home = () => {
             </div>
 
             <div className="md:ml-60">
-                <img src={img} alt="" className="w-96 h-96 object-cover border-8 border-accent shadow-xl" 
+                <img src={img} alt="" className="w-96 h-96 object-cover object-[50%_25%] border-8 border-accent shadow-xl" 
                 style={{
                     borderRadius : "30% 70% 70% 30% / 67% 62% 38% 33%"
                 }}

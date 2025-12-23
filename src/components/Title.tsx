@@ -1,9 +1,10 @@
 interface TitleProps {
-    title : string
+    title: string;
+    className?: string; 
 }
-const Title = ({title} : TitleProps) => {
+const Title = ({ title, className }: TitleProps) => {
   return (
-    <h1 className="uppercase font-bold mb-5 text-center text-3xl">
+    <h1 className={`uppercase font-bold text-center text-3xl ${className || ''}`}>
       {title}
     </h1>
   )

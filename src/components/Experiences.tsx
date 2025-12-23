@@ -67,10 +67,14 @@ const experiences = [
 
 
 
-const Experiences = () => {
+interface ExperiencesProps {
+    className?: string;
+}
+
+const Experiences = ({ className }: ExperiencesProps) => {
     return (
-        <div id="Experiences">
-            <Title title="Expériences" />
+        <div id="Experiences" className={`py-40 ${className || ''}`}>
+            <Title title="Expériences" className="mb-10" />
             <div className="flex  flex-col-reverse md:flex-row justify-center items-center">
                 <div className="flex flex-wrap gap-4  justify-center items-center md:w-1/3 mt-4 md:mt-0">
                     {skills.map((skill) => (
