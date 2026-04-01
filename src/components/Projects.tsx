@@ -13,7 +13,7 @@ const projects = [
         description: 'Application de gestion de projets',
         technologies: ['Vite', 'Typescript', 'Docker', 'Express'],
         demoLink: 'https://cpm-new.vercel.app',
-        repoLink: 'https://github.com/LaCsoN00/cpm-new.git',
+        repoLink: 'https://github.com/LaCsoN00/cpm_new.git',
         image: img1,
     },
     {
