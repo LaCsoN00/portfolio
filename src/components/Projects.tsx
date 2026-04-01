@@ -11,9 +11,9 @@ const projects = [
         id: 1,
         title: 'Gestionnaire de projets',
         description: 'Application de gestion de projets',
-        technologies: ['Next.js', 'Typescript', 'Tailwind CSS', 'HTML'],
-        demoLink: 'https://cpm-app.vercel.app',
-        repoLink: 'https://github.com/LaCsoN00/cpm-app.git',
+        technologies: ['Vite', 'Typescript', 'Docker', 'Express'],
+        demoLink: 'https://cpm-new.vercel.app',
+        repoLink: 'https://github.com/LaCsoN00/cpm-new.git',
         image: img1,
     },
     {
