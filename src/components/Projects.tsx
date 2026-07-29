@@ -1,8 +1,8 @@
 import Title from "./Title"
 
-import img1 from '../assets/projects/1.avif';
-import img4 from '../assets/projects/4.avif';
-import img6 from '../assets/projects/6.png';
+import cpmImg from '../assets/projects/cpm.png';
+import cvbuilderImg from '../assets/projects/cvbuilder.png';
+import scolibusImg from '../assets/projects/scolibus.png';
 import { Github, Video } from "lucide-react";
 
 
@@ -14,16 +14,16 @@ const projects = [
         technologies: ['Vite', 'Typescript', 'Docker', 'Express'],
         demoLink: 'https://cpm-new-ajkx.vercel.app/',
         repoLink: 'https://github.com/LaCsoN00/cpm_new.git',
-        image: img1,
+        image: cpmImg,
     },
     {
         id: 4,
-        title: 'Concepteur de CV',
-        description: 'Application de conception de CV',
-        technologies: ['Typescript', 'Javascript', 'CSS'],
+        title: 'CV Builder',
+        description: 'Application de création de CV',
+        technologies: ['Next.js', 'Tailwind CSS', 'JavaScript'],
         demoLink: 'https://cv-builder-sandy-two.vercel.app/',
         repoLink: 'https://github.com/LaCsoN00/cv_builder.git',
-        image: img4,
+        image: cvbuilderImg,
     },
     {
         id: 6,
@@ -32,7 +32,7 @@ const projects = [
         technologies: ['Typescript', 'Javascript', 'HTML', 'CSS'],
         demoLink: 'https://scolibus.vercel.app',
         repoLink: 'https://github.com/LaCsoN00/Scolibus.git',
-        image: img6,
+        image: scolibusImg,
     },
 ];
 
@@ -62,7 +62,7 @@ const Projects = ({ className }: ProjectsProps) => {
                             </div>
                             <div className="flex flex-wrap gap-2 my-3">
                                 {project.technologies.map((tech) => (
-                                    <span className="badge badge-accent badge-sm">
+                                    <span key={tech} className="badge badge-accent badge-sm">
                                         {tech}
                                     </span>
                                 ))}
