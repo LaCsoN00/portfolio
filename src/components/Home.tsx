@@ -11,12 +11,11 @@ const Home = () => {
                     <span className="text-accent">Luc-Jeeffel</span>
                 </h1>
 
-                <p className="my-4 text-md text-center md:text-left">
-                    Je suis un développeur fullstack freelance <br />
-                    avec 3 ans d'expérience, utilisant React, next.js <br /> et Node.js. Contactez-moi si vous avez besoin
-                    de mes services.
+                <p className="my-4 text-md text-center md:text-left max-w-lg leading-relaxed">
+                    Informaticien et Développeur passionné par le développement d'applications web et mobiles, 
+                    spécialisé dans la création d'interfaces intuitives et performantes.
                 </p>
-                <a href="https://wa.me/77401848" className=" btn btn-accent md:w-fit">
+                <a href="https://wa.me/24177401848" className="btn btn-accent md:w-fit" target="_blank" rel="noopener noreferrer">
                     <Mail className="w-5 h-5" />
                     Contactez-moi
                 </a>
