@@ -1,7 +1,590 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Hanken+Grotesk:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================
+   OBSIDIAN NEBULA — DESIGN SYSTEM (Stitch)
+   Background: #0D0B1E | Grid: #1A1633
+   Accent: Purple #7C3AED → Pink #EC4899
+   Fonts: Plus Jakarta Sans · Space Mono · Hanken Grotesk
+   ======================================== */
+
+:root {
+    --bg-deep:      #0D0B1E;
+    --bg-surface:   #101224;
+    --bg-card:      #1D1E31;
+    --bg-card-high: #27283C;
+    --grid-line:    #1A1633;
+    --accent-purple:#7C3AED;
+    --accent-pink:  #EC4899;
+    --accent-mid:   #A855F7;
+    --text-primary: #E1E0FA;
+    --text-muted:   #C9C5CD;
+    --text-dim:     #928F97;
+    --border-glass: rgba(255,255,255,0.08);
+    --border-glow:  rgba(124,62,237,0.4);
+    --gradient:     linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%);
+    --gradient-text: linear-gradient(135deg, #A855F7, #EC4899);
+}
+
 html {
     scroll-behavior: smooth;
 }
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Hanken Grotesk', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   GRID LINE BACKGROUND
+   ======================================== */
+.grid-line-bg {
+    position: relative;
+    background-color: var(--bg-deep);
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+
+/* Radial vignette hole effect for hero */
+.grid-hero-bg {
+    position: relative;
+    background-color: var(--bg-deep);
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    overflow: hidden;
+}
+.grid-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 65% 70% at 62% 50%, transparent 0%, rgba(13,11,30,0.85) 65%, rgba(13,11,30,0.98) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+.font-mono-label { font-family: 'Space Mono', monospace; }
+.font-body { font-family: 'Hanken Grotesk', sans-serif; }
+
+.gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   GRADIENT BUTTON
+   ======================================== */
+.btn-gradient {
+    background: var(--gradient);
+    color: #fff;
+    border: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+.btn-gradient:hover {
+    box-shadow: 0 0 24px rgba(168,85,247,0.5), 0 0 48px rgba(236,72,153,0.2);
+    transform: translateY(-2px);
+}
+
+/* Bouton outline — même forme que btn-gradient, fond transparent */
+.btn-outline {
+    background: transparent;
+    color: var(--accent-mid);
+    border: 1.5px solid var(--accent-purple);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+.btn-outline:hover {
+    background: rgba(124,62,237,0.15);
+    color: #fff;
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 20px rgba(168,85,247,0.3);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   GLASS CARD
+   ======================================== */
+.glass-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+    border-color: rgba(124,62,237,0.4);
+    box-shadow: 0 0 24px rgba(124,62,237,0.15);
+}
+
+/* ========================================
+   SECTION TITLE (Glitch + underline)
+   ======================================== */
+.section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+@keyframes glitch-1 {
+    0%,100% { clip-path:inset(0 0 95% 0); transform:translate(-2px,0); }
+    25%      { clip-path:inset(40% 0 40% 0); transform:translate(2px,0); }
+    50%      { clip-path:inset(70% 0 10% 0); transform:translate(-1px,0); }
+    75%      { clip-path:inset(10% 0 70% 0); transform:translate(1px,0); }
+}
+@keyframes glitch-2 {
+    0%,100% { clip-path:inset(80% 0 5% 0); transform:translate(2px,0); }
+    33%      { clip-path:inset(20% 0 60% 0); transform:translate(-2px,0); }
+    66%      { clip-path:inset(50% 0 25% 0); transform:translate(1px,0); }
+}
+.glitch-title {
+    position: relative;
+    display: inline-block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+.glitch-title::before {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glitch-1 5s infinite linear;
+    opacity: 0.5;
+}
+.glitch-title::after {
+    color: #EC4899;
+    animation: glitch-2 5s infinite linear;
+    opacity: 0.35;
+}
+
+.title-underline {
+    height: 2px;
+    background: var(--gradient);
+    border-radius: 2px;
+    margin: 0.75rem auto 0;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1) 0.3s;
+}
+
+/* ========================================
+   TYPEWRITER CURSOR
+   ======================================== */
+@keyframes blink-cursor {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+.cursor-blink {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background: var(--accent-pink);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink-cursor 0.8s step-end infinite;
+}
+
+/* ========================================
+   HERO — Profile circle + glow
+   ======================================== */
+.profile-ring {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-ring::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: var(--gradient);
+    animation: ring-spin 8s linear infinite;
+    z-index: 0;
+}
+.profile-ring::after {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    background: var(--gradient);
+    filter: blur(24px);
+    opacity: 0.35;
+    animation: glow-pulse 3s ease-in-out infinite;
+    z-index: 0;
+}
+@keyframes ring-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes glow-pulse {
+    0%,100% { opacity: 0.3; }
+    50%      { opacity: 0.6; }
+}
+
+/* ========================================
+   FLOATING TECH BADGE
+   ======================================== */
+.tech-badge {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(13,11,30,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168,85,247,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 16px rgba(124,62,237,0.25);
+    z-index: 10;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tech-badge:hover {
+    box-shadow: 0 0 24px rgba(168,85,247,0.5), 0 0 48px rgba(236,72,153,0.2);
+    transform: scale(1.15) !important;
+}
+/* Wave gauche → droite : tous les badges ont la même durée,
+   seul le delay crée l'effet vague */
+@keyframes wave-badge {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-14px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ========================================
+   SCROLL REVEAL
+   ======================================== */
+.reveal-hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-hidden.revealed  { opacity:1; transform:translateY(0); }
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-left.revealed    { opacity:1; transform:translateX(0); }
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-right.revealed   { opacity:1; transform:translateX(0); }
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-scale.revealed   { opacity:1; transform:scale(1); }
+
+.delay-100 { transition-delay:0.1s; }
+.delay-200 { transition-delay:0.2s; }
+.delay-300 { transition-delay:0.3s; }
+.delay-400 { transition-delay:0.4s; }
+.delay-500 { transition-delay:0.5s; }
+.delay-600 { transition-delay:0.6s; }
+.delay-700 { transition-delay:0.7s; }
+.delay-800 { transition-delay:0.8s; }
+
+/* ========================================
+   HERO ENTRANCE ANIMATIONS
+   ======================================== */
+@keyframes fade-up-in {
+    from { opacity:0; transform:translateY(30px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+@keyframes hero-img-in {
+    from { opacity:0; transform:scale(0.8); }
+    to   { opacity:1; transform:scale(1); }
+}
+.hero-img-anim {
+    opacity: 0;
+}
+.hero-img-anim.revealed {
+    animation: hero-img-in 1s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+
+.hero-left-anim .hero-label,
+.hero-left-anim .hero-name,
+.hero-left-anim .hero-role,
+.hero-left-anim .hero-desc,
+.hero-left-anim .hero-cta {
+    opacity: 0;
+}
+
+.hero-left-anim.revealed .hero-label   { animation: fade-up-in 0.7s ease 0.1s both; }
+.hero-left-anim.revealed .hero-name    { animation: fade-up-in 0.7s ease 0.25s both; }
+.hero-left-anim.revealed .hero-role    { animation: fade-up-in 0.7s ease 0.4s both; }
+.hero-left-anim.revealed .hero-desc    { animation: fade-up-in 0.7s ease 0.55s both; }
+.hero-left-anim.revealed .hero-cta     { animation: fade-up-in 0.7s ease 0.7s both; }
+
+/* ========================================
+   FLOATING TECH ICON (skills section)
+   ======================================== */
+@keyframes float-icon {
+    0%,100% { transform:translateY(0) rotate(0deg); }
+    33%     { transform:translateY(-8px) rotate(2deg); }
+    66%     { transform:translateY(4px) rotate(-1deg); }
+}
+.float-icon { animation: float-icon 3.5s ease-in-out infinite; }
+
+/* ========================================
+   CHIP / BADGE
+   ======================================== */
+.chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(124,62,237,0.15);
+    border: 1px solid rgba(124,62,237,0.3);
+    color: #C084FC;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* ========================================
+   TESTIMONIALS & MARQUEE (Left to Right)
+   ======================================== */
+@keyframes marquee-ltr {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+.marquee-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.marquee-container::before,
+.marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 20;
+    pointer-events: none;
+}
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-deep), transparent);
+}
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-deep), transparent);
+}
+.marquee-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: marquee-ltr 25s linear infinite;
+}
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.testimonial-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 120px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.15;
+    line-height: 1;
+}
+.testimonial-card:hover {
+    border-color: rgba(124,62,237,0.4);
+    box-shadow: 0 0 32px rgba(124,62,237,0.12);
+    transform: translateY(-4px);
+}
+.testimonial-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: white;
+    flex-shrink: 0;
+}
+.star-rating::after {
+    content: '★★★★★';
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   SCROLL TO TOP
+   ======================================== */
+@keyframes bounce-up {
+    0%,100% { transform:translateY(0); }
+    50%      { transform:translateY(-6px); }
+}
+.scroll-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(124,62,237,0.4);
+}
+.scroll-top-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+.scroll-top-btn:hover {
+    box-shadow: 0 0 24px rgba(168,85,247,0.6);
+}
+
+/* ========================================
+   NAVBAR ACTIVE UNDERLINE
+   ======================================== */
+.nav-link-active::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: var(--gradient);
+    border-radius: 2px;
+    margin-top: 2px;
+}
+
+/* ========================================
+   EXPERIENCE TIMELINE LINE
+   ======================================== */
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gradient);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(168,85,247,0.6);
+}
+
+/* ========================================
+   SCAN LINE OVERLAY
+   ======================================== */
+@keyframes scan-move {
+    0%   { top: -5%; }
+    100% { top: 105%; }
+}
+.scan-section {
+    position: relative;
+    overflow: hidden;
+}
+.scan-section::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4), transparent);
+    animation: scan-move 6s linear infinite;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* ========================================
+   PROJECT IMAGE HOVER
+   ======================================== */
+.project-img-wrap { overflow: hidden; border-radius: 8px; }
+.project-img-wrap img { transition: transform 0.5s ease; }
+.project-img-wrap:hover img { transform: scale(1.06); }

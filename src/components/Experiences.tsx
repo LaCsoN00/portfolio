@@ -1,4 +1,5 @@
 import Title from "./Title"
+import { useScrollReveal } from "../hooks/useScrollReveal"
 
 import imgCSS from "../assets/techno/css.png";
 import imgJS from "../assets/techno/js.png";
@@ -14,20 +15,33 @@ import airtel from "../assets/companies/airtel.png";
 import ipi9 from "../assets/companies/ipi9.jpeg";
 import cpm from "../assets/companies/cpm.png";
 
+import { FaReact, FaPython, FaWordpress, FaDocker, FaGithub, FaLinux, FaBrain } from "react-icons/fa";
+import { SiVuedotjs, SiPostgresql, SiMysql, SiFirebase, SiSupabase, SiCisco } from "react-icons/si";
 
-
-const skills = [
+const allTechnologies = [
     { id: 1, name: "HTML", image: imgHTML },
     { id: 2, name: "CSS", image: imgCSS },
     { id: 3, name: "JavaScript", image: imgJS },
-    { id: 4, name: "React", image: imgREACT },
-    { id: 5, name: "Node.js", image: imgNODE },
-    { id: 6, name: "Tailwind CSS", image: imgTAILWIND },
-    { id: 7, name: "TypeScript", image: imgTYPE },
+    { id: 4, name: "TypeScript", image: imgTYPE },
+    { id: 5, name: "React", image: imgREACT },
+    { id: 6, name: "React Native", icon: <FaReact className="text-[#61DAFB] w-8 h-8" /> },
+    { id: 7, name: "Vue.js", icon: <SiVuedotjs className="text-[#4FC08D] w-8 h-8" /> },
     { id: 8, name: "Next.js", image: imgNEXT },
-    { id: 9, name: "Prisma", image: imgPRISMA },
+    { id: 9, name: "Node.js", image: imgNODE },
+    { id: 10, name: "Tailwind CSS", image: imgTAILWIND },
+    { id: 11, name: "Prisma", image: imgPRISMA },
+    { id: 12, name: "Python", icon: <FaPython className="text-[#3776AB] w-8 h-8" /> },
+    { id: 13, name: "PostgreSQL", icon: <SiPostgresql className="text-[#4169E1] w-8 h-8" /> },
+    { id: 14, name: "MySQL", icon: <SiMysql className="text-[#4479A1] w-8 h-8" /> },
+    { id: 15, name: "Firebase", icon: <SiFirebase className="text-[#FFCA28] w-8 h-8" /> },
+    { id: 16, name: "Supabase", icon: <SiSupabase className="text-[#3ECF8E] w-8 h-8" /> },
+    { id: 17, name: "Docker", icon: <FaDocker className="text-[#2496ED] w-8 h-8" /> },
+    { id: 18, name: "GitHub", icon: <FaGithub className="text-white w-8 h-8" /> },
+    { id: 19, name: "Linux", icon: <FaLinux className="text-[#FCC624] w-8 h-8" /> },
+    { id: 20, name: "WordPress", icon: <FaWordpress className="text-[#21759B] w-8 h-8" /> },
+    { id: 21, name: "CCNAv7", icon: <SiCisco className="text-[#1BA0D7] w-8 h-8" /> },
+    { id: 22, name: "Modèles IA", icon: <FaBrain className="text-[#EC4899] w-8 h-8" /> },
 ];
-
 
 const experiences = [
     {
@@ -66,80 +80,110 @@ const experiences = [
     },
 ];
 
-
-
 interface ExperiencesProps {
     className?: string;
 }
 
 const Experiences = ({ className }: ExperiencesProps) => {
+    const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal({ threshold: 0.1 })
+    const { ref: expRef, isVisible: expVisible } = useScrollReveal({ threshold: 0.1 })
+
     return (
-        <div id="Experiences" className={`py-40 ${className || ''}`}>
+        <section id="Experiences" className={`py-32 bg-[var(--bg-deep)] grid-line-bg border-t border-white/5 ${className || ''}`}>
             <Title title="Expériences & Compétences" className="mb-16" />
-            <div className="flex flex-col-reverse md:flex-row justify-center items-start gap-12 max-w-6xl mx-auto px-6">
-                {/* Skills Section */}
-                <div className="w-full md:w-5/12 flex flex-col items-center">
-                    <h2 className="text-xl font-bold mb-6 text-accent">Technologies</h2>
-                    <div className="flex flex-wrap gap-6 justify-center items-center">
-                        {skills.map((skill) => (
-                            <div key={skill.id} className="flex justify-center items-center flex-col w-20">
-                                <div className="w-20 h-20 p-2 rounded-full border-2 border-accent/30 bg-base-200 shadow-md hover:border-accent hover:scale-105 transition-all duration-300 flex items-center justify-center">
-                                    <img src={skill.image} alt={skill.name}
-                                        className="object-contain rounded-full max-h-full max-w-full"
-                                    />
+            
+            <div className="flex flex-col-reverse lg:flex-row justify-center items-start gap-12 max-w-6xl mx-auto px-6 relative z-10">
+
+                {/* Rubrique 1: Technologies */}
+                <div
+                    ref={skillsRef}
+                    className={`w-full lg:w-5/12 flex flex-col items-center lg:items-start reveal-left ${skillsVisible ? 'revealed' : ''}`}
+                >
+                    <h2 className="text-sm font-bold mb-8 text-[var(--accent-mid)] font-mono-label tracking-widest uppercase">
+                        &lt;Technologies /&gt;
+                    </h2>
+                    <div className="flex flex-wrap gap-5 justify-center lg:justify-start items-center">
+                        {allTechnologies.map((skill, i) => (
+                            <div
+                                key={skill.id}
+                                className={`flex justify-center items-center flex-col w-20 reveal-scale ${skillsVisible ? 'revealed' : ''}`}
+                                style={{ transitionDelay: `${i * 40}ms` }}
+                            >
+                                <div
+                                    className="float-icon w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
+                                    style={{ animationDelay: `${(i % 5) * 0.4}s` }}
+                                >
+                                    {skill.image ? (
+                                        <img
+                                            src={skill.image}
+                                            alt={skill.name}
+                                            className="object-contain max-h-full max-w-full"
+                                        />
+                                    ) : (
+                                        skill.icon
+                                    )}
                                 </div>
-                                <span className="mt-2 text-xs font-semibold text-center">{skill.name}</span>
+                                <span className="mt-2 text-[11px] font-semibold text-center font-mono-label text-[var(--text-muted)] tracking-wide">{skill.name}</span>
                             </div>
                         ))}
                     </div>
-                    
-                    <div className="mt-10 w-full border-t border-accent/20 pt-6">
-                        <h3 className="text-lg font-bold mb-4 text-center">Autres Outils & Compétences</h3>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                            {["React Native", "Vue.js", "Python", "WordPress", "PostgreSQL", "MySQL", "Firebase", "Supabase", "Docker", "GitHub", "Linux", "Réseau (CCNAv7)", "Modèles d'IA"].map((tech) => (
-                                <span key={tech} className="badge badge-accent badge-outline px-3 py-2.5 text-xs font-semibold">{tech}</span>
-                            ))}
-                        </div>
-                    </div>
                 </div>
 
-                {/* Experiences Section */}
-                <div className="w-full md:w-7/12 flex flex-col space-y-6">
-                    <h2 className="text-xl font-bold mb-6 text-accent text-center md:text-left">Parcours Professionnel</h2>
-                    {experiences.map((expericence) => (
-                        <div
-                            key={expericence.id}
-                            className="flex flex-col bg-base-200 p-6 rounded-2xl shadow-xl border border-base-100 hover:border-accent/30 transition-all duration-300"
-                        >
-                            <div className="flex items-center">
-                                <div className="p-2 bg-base-100 rounded-xl w-14 h-14 flex items-center justify-center shadow-inner flex-shrink-0">
-                                    <img
-                                        src={expericence.image}
-                                        alt={expericence.company}
-                                        className="object-contain max-h-full max-w-full rounded-lg"
-                                    />
-                                </div>
-                                <div className="ml-4">
-                                    <h3 className="text-lg text-accent font-bold leading-tight">
-                                        {expericence.role}
-                                    </h3>
-                                    <p className="text-sm font-semibold">{expericence.company}</p>
-                                    <span className="text-xs text-base-content/60">{expericence.period}</span>
+                {/* Rubrique 2: Parcours Professionnel */}
+                <div
+                    ref={expRef}
+                    className="w-full lg:w-7/12 flex flex-col space-y-6"
+                >
+                    <h2 className={`text-sm font-bold mb-8 text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase reveal-right ${expVisible ? 'revealed' : ''}`}>
+                        &lt;Parcours Professionnel /&gt;
+                    </h2>
+                    
+                    <div className="relative border-l border-white/10 ml-4 lg:ml-0 space-y-8 pb-4">
+                        {experiences.map((experience, i) => (
+                            <div
+                                key={experience.id}
+                                className={`relative pl-6 lg:pl-8 reveal-right ${expVisible ? 'revealed' : ''}`}
+                                style={{ transitionDelay: `${100 + i * 180}ms` }}
+                            >
+                                {/* Timeline Dot */}
+                                <div className="absolute left-[-6px] top-4 w-3 h-3 rounded-full bg-[var(--gradient)] shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
+                                
+                                <div className="glass-card p-6 group">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+                                        <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5">
+                                            <img
+                                                src={experience.image}
+                                                alt={experience.company}
+                                                className="object-contain max-h-full max-w-full rounded-md"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-lg font-bold font-mono-label text-white mb-1 tracking-wide group-hover:text-[var(--accent-pink)] transition-colors duration-300">
+                                                {experience.role}
+                                            </h3>
+                                            <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
+                                                <span className="font-semibold font-mono-label text-[var(--text-muted)] tracking-wide">{experience.company}</span>
+                                                <span className="text-[var(--text-dim)] hidden sm:inline">•</span>
+                                                <span className="font-mono-label text-[var(--accent-mid)] text-xs tracking-wide">{experience.period}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul className="space-y-2 text-[var(--text-primary)] font-mono-label text-xs md:text-sm leading-relaxed mt-4 list-disc list-outside ml-4 tracking-wide">
+                                        {experience.description.map((desc, index) => (
+                                            <li key={index} className="pl-2">{desc}</li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </div>
-                            <ul className="list-disc ml-6 mt-4 space-y-1 text-sm text-base-content/80">
-                                {expericence.description.map((desc, index) => (
-                                    <li key={index} className="pl-1">
-                                        {desc}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
 export default Experiences
+
+
+
