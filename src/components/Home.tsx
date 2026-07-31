@@ -2,7 +2,7 @@ import { Mail, Download } from "lucide-react"
 import img from '../assets/img.jpg'
 import { useTypewriter } from "../hooks/useTypewriter"
 import { useScrollReveal } from "../hooks/useScrollReveal"
-import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaGitAlt, FaDocker } from "react-icons/fa"
+import { FaHtml5, FaReact, FaNodeJs, FaDocker } from "react-icons/fa"
 import { SiTypescript, SiNextdotjs } from "react-icons/si"
 
 const roles = [
