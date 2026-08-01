@@ -45,6 +45,10 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 /* ========================================
    GRID LINE BACKGROUND
    ======================================== */
@@ -323,15 +327,18 @@ h1, h2, h3, h4 {
     opacity: 0;
     transform: translateX(-60px);
     transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    /* clip to prevent horizontal scrollbar trigger */
+    clip-path: inset(0 -100vw 0 0);
 }
-.reveal-left.revealed    { opacity:1; transform:translateX(0); }
+.reveal-left.revealed    { opacity:1; transform:translateX(0); clip-path: inset(0); }
 
 .reveal-right {
     opacity: 0;
     transform: translateX(60px);
     transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    clip-path: inset(0 0 0 -100vw);
 }
-.reveal-right.revealed   { opacity:1; transform:translateX(0); }
+.reveal-right.revealed   { opacity:1; transform:translateX(0); clip-path: inset(0); }
 
 .reveal-scale {
     opacity: 0;
@@ -604,6 +611,7 @@ h1, h2, h3, h4 {
     html, body {
         overflow-x: hidden;
         width: 100%;
+        max-width: 100%;
     }
 
     /* Hero section spacing */
@@ -643,5 +651,15 @@ h1, h2, h3, h4 {
         right: 1rem;
         width: 42px;
         height: 42px;
+    }
+
+    /* Prevent any animated reveal from causing horizontal scroll */
+    .reveal-left, .reveal-right {
+        clip-path: inset(0);
+        transform: translateX(0);
+        opacity: 0;
+    }
+    .reveal-left.revealed, .reveal-right.revealed {
+        opacity: 1;
     }
 }
