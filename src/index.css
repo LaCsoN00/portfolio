@@ -628,11 +628,6 @@ h1, h2, h3, h4 {
         white-space: nowrap;
     }
 
-    /* Profile ring smaller on mobile */
-    .profile-ring {
-        width: 220px;
-        height: 220px;
-    }
 
     /* Tech badges on smaller ring */
     .tech-badge {
