@@ -509,9 +509,9 @@ h1, h2, h3, h4 {
 }
 .scroll-top-btn {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 1000;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -526,6 +526,13 @@ h1, h2, h3, h4 {
     transition: opacity 0.2s ease;
     pointer-events: none;
     box-shadow: 0 4px 20px rgba(124,62,237,0.4);
+    will-change: opacity;
+    touch-action: manipulation;
+    /* Prevent any layout influence */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 .scroll-top-btn.visible {
     opacity: 1;
@@ -588,3 +595,53 @@ h1, h2, h3, h4 {
 .project-img-wrap { overflow: hidden; border-radius: 8px; }
 .project-img-wrap img { transition: transform 0.5s ease; }
 .project-img-wrap:hover img { transform: scale(1.06); }
+
+/* ========================================
+   MOBILE RESPONSIVENESS
+   ======================================== */
+@media (max-width: 767px) {
+    /* Prevent horizontal overflow */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Hero section spacing */
+    section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Buttons take full width on mobile */
+    .btn-gradient,
+    .btn-outline {
+        padding: 0.7rem 1rem;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+
+    /* Profile ring smaller on mobile */
+    .profile-ring {
+        width: 220px;
+        height: 220px;
+    }
+
+    /* Tech badges on smaller ring */
+    .tech-badge {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* Glass cards full width */
+    .glass-card {
+        width: 100%;
+    }
+
+    /* Scroll to top button — bottom safe area */
+    .scroll-top-btn {
+        bottom: 1rem;
+        right: 1rem;
+        width: 42px;
+        height: 42px;
+    }
+}

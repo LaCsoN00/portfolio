@@ -1,5 +1,4 @@
 import { Mail, Download } from "lucide-react"
-import img from '../assets/img.jpg'
 import { useTypewriter } from "../hooks/useTypewriter"
 import { useScrollReveal } from "../hooks/useScrollReveal"
 import { FaHtml5, FaReact, FaNodeJs, FaDocker } from "react-icons/fa"
@@ -26,9 +25,9 @@ const Home = () => {
     return (
         <section
             id="Home"
-            className="grid-hero-bg flex flex-col md:flex-row justify-center items-center py-32 md:py-48 min-h-screen px-6 overflow-hidden"
+            className="grid-hero-bg flex flex-col md:flex-row justify-center items-center py-24 md:py-48 min-h-screen px-4 sm:px-6 overflow-hidden"
         >
-            <div className="max-w-6xl w-full flex flex-col-reverse md:flex-row items-center justify-between z-10 gap-16 md:gap-8">
+            <div className="max-w-6xl w-full flex flex-col-reverse md:flex-row items-center justify-between z-10 gap-10 md:gap-8">
                 
                 {/* Left Side: Content */}
                 <div
@@ -60,10 +59,10 @@ const Home = () => {
                         Conception d'interfaces modernes, responsives et performantes.
                     </p>
                     
-                    <div className="hero-cta flex flex-wrap gap-4 items-center">
+                    <div className="hero-cta flex flex-row gap-3 items-center w-full md:w-auto">
                         <a
                             href="https://wa.me/24177401848"
-                            className="btn-gradient"
+                            className="btn-gradient flex-1 md:flex-none justify-center"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -73,7 +72,7 @@ const Home = () => {
                         <a
                             href="/cv.pdf"
                             download="CV_Luc-Jeeffel_Mounguengui.pdf"
-                            className="btn-outline"
+                            className="btn-outline flex-1 md:flex-none justify-center"
                         >
                             <Download className="w-5 h-5" />
                             Télécharger CV
@@ -88,9 +87,9 @@ const Home = () => {
                 >
                     <div className="profile-ring">
                         <img
-                            src={img}
+                            src="/profil.jpeg"
                             alt="Luc-Jeeffel"
-                            className="w-64 h-64 md:w-[360px] md:h-[360px] object-cover rounded-full border border-white/10 relative z-10"
+                            className="w-52 h-52 sm:w-64 sm:h-64 md:w-[360px] md:h-[360px] object-cover rounded-full border border-white/10 relative z-10"
                             style={{ objectPosition: '50% 15%' }}
                         />
                         
