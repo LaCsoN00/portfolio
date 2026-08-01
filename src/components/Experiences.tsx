@@ -80,13 +80,65 @@ const experiences = [
     },
 ];
 
+interface ExperienceItemProps {
+    experience: {
+        id: number;
+        role: string;
+        company: string;
+        period: string;
+        description: string[];
+        image: string;
+    };
+}
+
+const ExperienceCard = ({ experience }: ExperienceItemProps) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
+
+    return (
+        <div
+            ref={ref}
+            className={`relative pl-0 lg:pl-8 reveal-right ${isVisible ? 'revealed' : ''}`}
+        >
+            {/* Timeline Dot (desktop only) */}
+            <div className="hidden lg:block absolute left-[-6px] top-4 w-3 h-3 rounded-full bg-[var(--gradient)] shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
+            
+            <div className="glass-card p-6 group">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+                    <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5">
+                        <img
+                            src={experience.image}
+                            alt={experience.company}
+                            className="object-contain max-h-full max-w-full rounded-md"
+                        />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold font-mono-label text-white mb-1 tracking-wide group-hover:text-[var(--accent-pink)] transition-colors duration-300">
+                            {experience.role}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
+                            <span className="font-semibold font-mono-label text-[var(--text-muted)] tracking-wide">{experience.company}</span>
+                            <span className="text-[var(--text-dim)] hidden sm:inline">•</span>
+                            <span className="font-mono-label text-[var(--accent-mid)] text-xs tracking-wide">{experience.period}</span>
+                        </div>
+                    </div>
+                </div>
+                <ul className="space-y-2 text-[var(--text-primary)] font-mono-label text-xs md:text-sm leading-relaxed mt-4 list-disc list-outside ml-4 tracking-wide">
+                    {experience.description.map((desc, index) => (
+                        <li key={index} className="pl-2">{desc}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
 interface ExperiencesProps {
     className?: string;
 }
 
 const Experiences = ({ className }: ExperiencesProps) => {
-    const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal({ threshold: 0.1 })
-    const { ref: expRef, isVisible: expVisible } = useScrollReveal({ threshold: 0.1 })
+    const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal({ threshold: 0.1 });
+    const { ref: expTitleRef, isVisible: expTitleVisible } = useScrollReveal({ threshold: 0.1 });
 
     return (
         <section id="Experiences" className={`py-32 bg-[var(--bg-deep)] grid-line-bg border-t border-white/5 ${className || ''}`}>
@@ -130,51 +182,17 @@ const Experiences = ({ className }: ExperiencesProps) => {
                 </div>
 
                 {/* Rubrique 2: Parcours Professionnel */}
-                <div
-                    ref={expRef}
-                    className="w-full lg:w-7/12 flex flex-col space-y-6"
-                >
-                    <h2 className={`text-sm font-bold mb-8 text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase reveal-right ${expVisible ? 'revealed' : ''}`}>
+                <div className="w-full lg:w-7/12 flex flex-col space-y-6">
+                    <h2
+                        ref={expTitleRef}
+                        className={`text-sm font-bold mb-8 text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase reveal-right ${expTitleVisible ? 'revealed' : ''}`}
+                    >
                         &lt;Parcours Professionnel /&gt;
                     </h2>
                     
-                    <div className="relative border-l border-white/10 ml-4 lg:ml-0 space-y-8 pb-4">
-                        {experiences.map((experience, i) => (
-                            <div
-                                key={experience.id}
-                                className={`relative pl-6 lg:pl-8 reveal-right ${expVisible ? 'revealed' : ''}`}
-                                style={{ transitionDelay: `${100 + i * 180}ms` }}
-                            >
-                                {/* Timeline Dot */}
-                                <div className="absolute left-[-6px] top-4 w-3 h-3 rounded-full bg-[var(--gradient)] shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
-                                
-                                <div className="glass-card p-6 group">
-                                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
-                                        <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5">
-                                            <img
-                                                src={experience.image}
-                                                alt={experience.company}
-                                                className="object-contain max-h-full max-w-full rounded-md"
-                                            />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-lg font-bold font-mono-label text-white mb-1 tracking-wide group-hover:text-[var(--accent-pink)] transition-colors duration-300">
-                                                {experience.role}
-                                            </h3>
-                                            <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
-                                                <span className="font-semibold font-mono-label text-[var(--text-muted)] tracking-wide">{experience.company}</span>
-                                                <span className="text-[var(--text-dim)] hidden sm:inline">•</span>
-                                                <span className="font-mono-label text-[var(--accent-mid)] text-xs tracking-wide">{experience.period}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul className="space-y-2 text-[var(--text-primary)] font-mono-label text-xs md:text-sm leading-relaxed mt-4 list-disc list-outside ml-4 tracking-wide">
-                                        {experience.description.map((desc, index) => (
-                                            <li key={index} className="pl-2">{desc}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
+                    <div className="relative border-l-0 lg:border-l border-white/10 ml-0 lg:ml-0 space-y-8 pb-4">
+                        {experiences.map((experience) => (
+                            <ExperienceCard key={experience.id} experience={experience} />
                         ))}
                     </div>
                 </div>

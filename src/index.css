@@ -648,13 +648,15 @@ h1, h2, h3, h4 {
         height: 42px;
     }
 
-    /* Prevent any animated reveal from causing horizontal scroll */
-    .reveal-left, .reveal-right {
+    /* Smooth vertical scroll reveal on mobile (element-by-element) */
+    .reveal-left, .reveal-right, .reveal-hidden, .reveal-scale {
         clip-path: inset(0);
-        transform: translateX(0);
+        transform: translateY(28px);
         opacity: 0;
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal-left.revealed, .reveal-right.revealed {
+    .reveal-left.revealed, .reveal-right.revealed, .reveal-hidden.revealed, .reveal-scale.revealed {
         opacity: 1;
+        transform: translateY(0);
     }
 }
