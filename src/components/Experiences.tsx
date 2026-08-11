@@ -243,7 +243,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
                     <h2 className="text-sm font-bold mb-8 text-[var(--accent-mid)] font-mono-label tracking-widest uppercase">
                         &lt;Technologies /&gt;
                     </h2>
-                    <div className="flex flex-wrap gap-5 justify-center lg:justify-start items-center">
+                    <div className="flex flex-wrap gap-5 justify-center lg:justify-start items-center pt-4 pb-2 overflow-visible">
                         {allTechnologies.map((skill, i) => (
                             <div
                                 key={skill.id}
