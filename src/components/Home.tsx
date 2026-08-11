@@ -7,8 +7,7 @@ import { SiTypescript, SiNextdotjs } from "react-icons/si"
 const roles = [
     "Assistant Data & SI",
     "Développeur Web & Mobile",
-    "Développeur Fullstack",
-    "Informaticien",
+    "Informaticien & Réseaux",
 ]
 
 const Home = () => {
