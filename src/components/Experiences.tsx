@@ -1,5 +1,6 @@
 import Title from "./Title"
 import { useScrollReveal } from "../hooks/useScrollReveal"
+import { GraduationCap, Award, Globe } from "lucide-react"
 
 import imgCSS from "../assets/techno/css.png";
 import imgJS from "../assets/techno/js.png";
@@ -48,35 +49,72 @@ const experiences = [
         id: 1,
         role: "Informaticien Stagiaire",
         company: "Consulting Public Management",
-        period: "Fév 2025 - Mai 2025",
+        location: "Libreville, Gabon",
+        period: "Fév 2025 — Mai 2025",
         description: [
-            "Développement d'une application de facturation et de gestion de projet.",
-            "Assistance aux utilisateurs et résolution de problèmes techniques.",
+            "Participation au développement d'une application de gestion de projet et de facturation.",
+            "Conception et structuration des données métier dans une base MySQL.",
+            "Participation au traitement, à l'organisation et à la gestion des informations de l'application.",
+            "Assistance aux utilisateurs et résolution des incidents techniques.",
+            "Participation à l'amélioration des outils et processus informatiques.",
         ],
+        stack: "Node.js, React, Vite, MySQL, Docker",
         image: cpm,
     },
     {
         id: 2,
         role: "Agent Informatique",
         company: "IPI9",
-        period: "Juin 2022 - Juin 2024",
+        location: "Libreville, Gabon",
+        period: "Jui 2023 — Oct 2024",
         description: [
-            "Création d'un micro logiciel de gestion de stock.",
-            "Utilisation d'outils informatiques pour le suivi et la gestion des demandes.",
+            "Développement d'un outil de gestion et de suivi des stocks.",
+            "Structuration et gestion des données relatives aux produits et aux mouvements de stock.",
+            "Utilisation d'une base MySQL pour l'enregistrement et l'exploitation des données.",
+            "Suivi des demandes et traitement des informations associées.",
         ],
+        stack: "HTML, CSS, JavaScript, MySQL",
         image: ipi9,
     },
     {
         id: 3,
         role: "Agent Commercial",
         company: "Airtel Gabon",
-        period: "Mai 2021 - Mars 2022",
+        location: "Libreville, Gabon",
+        period: "Mai 2021 — Mar 2022",
         description: [
-            "Ouverture de compte Airtel Money et promotion des produits Airtel.",
-            "Gestion de la clientèle, des commandes et des incidents.",
-            "Communication et support client.",
+            "Gestion et traitement des demandes clients.",
+            "Collecte et vérification des informations nécessaires à l'ouverture des comptes (Airtel Money).",
+            "Gestion des incidents et communication avec les utilisateurs.",
+            "Promotion des produits et services auprès de la clientèle.",
         ],
+        stack: "",
         image: airtel,
+    },
+];
+
+const educationList = [
+    {
+        id: 1,
+        degree: "Diplôme de Technicien Supérieur (DTS) | Métier du Multimédia et Internet (MMI)",
+        institution: "Institut National de la Poste, Technologies de l'Information et de la Communication",
+        period: "2025 — 2026",
+    },
+    {
+        id: 2,
+        degree: "Baccalauréat | Économie",
+        institution: "Lubin Martial NTOUNTOUME OBAME",
+        period: "2019 — 2020",
+    },
+];
+
+const certificationsList = [
+    {
+        id: 1,
+        title: "CCNAv7 : Introduction to Networks",
+        issuer: "Cisco Networking Academy",
+        year: "2022",
+        certId: "50a12efb-1be8-47c2-bfd5-86fc430135cd",
     },
 ];
 
@@ -85,8 +123,10 @@ interface ExperienceItemProps {
         id: number;
         role: string;
         company: string;
+        location?: string;
         period: string;
         description: string[];
+        stack?: string;
         image: string;
     };
 }
@@ -127,6 +167,48 @@ const ExperienceCard = ({ experience }: ExperienceItemProps) => {
                         <li key={index} className="pl-2">{desc}</li>
                     ))}
                 </ul>
+                {experience.stack && (
+                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2 font-mono-label text-xs text-[var(--accent-pink)]">
+                        <span className="text-[var(--text-dim)]">Stack:</span>
+                        <span>{experience.stack}</span>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+const EducationCard = ({ edu }: { edu: typeof educationList[0] }) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
+    return (
+        <div ref={ref} className={`glass-card p-5 reveal-hidden ${isVisible ? 'revealed' : ''}`}>
+            <div className="flex items-start gap-4">
+                <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
+                    <GraduationCap className="w-5 h-5" />
+                </div>
+                <div>
+                    <h4 className="font-mono-label font-bold text-white text-sm md:text-base mb-1">{edu.degree}</h4>
+                    <p className="font-mono-label text-xs text-[var(--text-muted)] mb-1">{edu.institution}</p>
+                    <span className="font-mono-label text-xs text-[var(--accent-mid)]">{edu.period}</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const CertificationCard = ({ cert }: { cert: typeof certificationsList[0] }) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
+    return (
+        <div ref={ref} className={`glass-card p-5 reveal-hidden ${isVisible ? 'revealed' : ''}`}>
+            <div className="flex items-start gap-4">
+                <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-purple)] flex-shrink-0">
+                    <Award className="w-5 h-5" />
+                </div>
+                <div>
+                    <h4 className="font-mono-label font-bold text-white text-sm md:text-base mb-1">{cert.title}</h4>
+                    <p className="font-mono-label text-xs text-[var(--text-muted)] mb-1">{cert.issuer} • {cert.year}</p>
+                    <p className="font-mono-label text-[11px] text-[var(--text-dim)]">ID : {cert.certId}</p>
+                </div>
             </div>
         </div>
     );
@@ -181,7 +263,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
                     </div>
                 </div>
 
-                {/* Rubrique 2: Parcours Professionnel */}
+                {/* Rubrique 2: Parcours Professionnel & Éducation */}
                 <div className="w-full lg:w-7/12 flex flex-col space-y-6">
                     <h2
                         ref={expTitleRef}
@@ -195,6 +277,41 @@ const Experiences = ({ className }: ExperiencesProps) => {
                             <ExperienceCard key={experience.id} experience={experience} />
                         ))}
                     </div>
+
+                    {/* Éducation */}
+                    <div className="pt-8 space-y-6">
+                        <h2 className="text-sm font-bold text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase">
+                            &lt;Éducation & Formation /&gt;
+                        </h2>
+                        <div className="space-y-4">
+                            {educationList.map((edu) => (
+                                <EducationCard key={edu.id} edu={edu} />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Certifications & Langues */}
+                    <div className="pt-6 space-y-6">
+                        <h2 className="text-sm font-bold text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase">
+                            &lt;Certifications & Langues /&gt;
+                        </h2>
+                        <div className="space-y-4">
+                            {certificationsList.map((cert) => (
+                                <CertificationCard key={cert.id} cert={cert} />
+                            ))}
+                            <div className="glass-card p-5 flex items-center gap-4">
+                                <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
+                                    <Globe className="w-5 h-5" />
+                                </div>
+                                <div className="font-mono-label text-xs md:text-sm text-[var(--text-muted)] flex flex-wrap gap-4">
+                                    <span><strong className="text-white">Français :</strong> Excellent</span>
+                                    <span>•</span>
+                                    <span><strong className="text-white">Anglais :</strong> Notion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

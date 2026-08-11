@@ -1,25 +1,24 @@
 import Title from "./Title"
-import img from '../assets/img.jpg'
-import { Code, Server, Network } from "lucide-react";
+import { Code, Network, Database } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const aboutSections = [
     {
         id: 1,
-        title: "Développement Frontend & Mobile",
-        description: "Conception d'interfaces web et mobiles modernes, responsives et adaptées aux utilisateurs (React, React Native, Next.js, Vue.js, Vite).",
-        icon: <Code className="w-6 h-6 text-[var(--accent-mid)]" />,
+        title: "Systèmes d'Information & Data",
+        description: "Structuration et exploitation de bases de données (MySQL, PostgreSQL, Firebase, Supabase), modélisation, reporting, tableaux de bord et fiabilisation des données.",
+        icon: <Database className="w-6 h-6 text-[var(--accent-mid)]" />,
     },
     {
         id: 2,
-        title: "Développement Backend & API",
-        description: "Conception de serveurs robustes et gestion de bases de données (Node.js, PostgreSQL, MySQL, Firebase, Supabase, Docker).",
-        icon: <Server className="w-6 h-6 text-[var(--accent-mid)]" />,
+        title: "Développement Web & Mobile",
+        description: "Conception et développement d'applications web et mobiles modernes, responsives et ergonomiques (React, React Native, Next.js, Vue.js, Node.js, Vite).",
+        icon: <Code className="w-6 h-6 text-[var(--accent-mid)]" />,
     },
     {
         id: 3,
-        title: "Réseaux & Administration",
-        description: "Administration réseau, protocoles TCP/IP, routage et commutation (Certifié Cisco CCNAv7).",
+        title: "Réseaux & Support Utilisateurs",
+        description: "Administration réseau TCP/IP, routage, commutation, assistance utilisateurs et résolution d'incidents informatiques (Certifié Cisco CCNAv7).",
         icon: <Network className="w-6 h-6 text-[var(--accent-mid)]" />,
     },
 ];
@@ -41,8 +40,8 @@ const About = () => {
                     >
                         <div className="relative p-1 rounded-2xl bg-[var(--gradient)]">
                             <img
-                                src={img}
-                                alt="Luc-Jeeffel"
+                                src="/profil.jpeg"
+                                alt="Luc-Jeeffel MABALA MOUNGUENGUI"
                                 className="w-full h-[480px] object-cover object-[50%_15%] rounded-xl"
                             />
                         </div>
@@ -55,11 +54,10 @@ const About = () => {
                     >
                         <p className="text-sm md:text-base leading-relaxed text-center lg:text-left text-[var(--text-primary)] font-mono-label tracking-wide">
                             <span className="text-[var(--accent-pink)] mr-2">&gt;&gt;</span>
-                            Passionné par le développement d'applications web et mobiles, avec un intérêt
-                            particulier pour le design responsive et l'expérience utilisateur. J'ai acquis
-                            des compétences en développement frontend et backend, ainsi qu'en gestion de
-                            projets numériques. Mon objectif est de concevoir des solutions numériques
-                            efficaces, ergonomiques et adaptées aux besoins des utilisateurs.
+                            Profil informatique orienté systèmes d'information, gestion et structuration des données.
+                            J'ai acquis de l'expérience dans le développement d'outils de gestion, l'exploitation de bases de données
+                            et le développement d'applications web et mobiles. Rigoureux et adaptable, je mets mes compétences techniques
+                            au service de la fiabilisation des données, du reporting et de l'amélioration continue des processus.
                         </p>
                         <div className="space-y-6">
                             {aboutSections.map((section, i) => (

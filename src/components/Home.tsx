@@ -5,8 +5,8 @@ import { FaHtml5, FaReact, FaNodeJs, FaDocker } from "react-icons/fa"
 import { SiTypescript, SiNextdotjs } from "react-icons/si"
 
 const roles = [
-    "Développeur Web",
-    "Développeur Mobile",
+    "Assistant Data & SI",
+    "Développeur Web & Mobile",
     "Développeur Fullstack",
     "Informaticien",
 ]
@@ -55,8 +55,8 @@ const Home = () => {
 
                     <p className="hero-desc font-mono-label text-[var(--text-muted)] text-sm max-w-lg mb-8 leading-loose tracking-wide">
                         <span className="text-[var(--accent-pink)]">// </span>
-                        Spécialisé dans la création d'expériences web immersives.<br/>
-                        Conception d'interfaces modernes, responsives et performantes.
+                        Spécialisé en Systèmes d'Information, gestion & structuration de données<br/>
+                        et développement d'applications web & mobiles performantes.
                     </p>
                     
                     <div className="hero-cta flex flex-row gap-3 items-center w-full md:w-auto">
