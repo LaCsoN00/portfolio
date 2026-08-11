@@ -168,9 +168,16 @@ const ExperienceCard = ({ experience }: ExperienceItemProps) => {
                     ))}
                 </ul>
                 {experience.stack && (
-                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2 font-mono-label text-xs text-[var(--accent-pink)]">
-                        <span className="text-[var(--text-dim)]">Stack:</span>
-                        <span>{experience.stack}</span>
+                    <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center gap-2 font-mono-label">
+                        <span className="text-xs font-bold text-[var(--accent-mid)] tracking-widest uppercase mr-1">&lt;Stack /&gt;</span>
+                        {experience.stack.split(',').map((tech, idx) => (
+                            <span
+                                key={idx}
+                                className="px-3 py-1 rounded-full text-xs font-mono-label font-bold bg-white/5 border border-white/10 shadow-sm hover:border-[var(--accent-pink)] hover:bg-white/10 transition-all duration-300"
+                            >
+                                <span className="gradient-text">{tech.trim()}</span>
+                            </span>
+                        ))}
                     </div>
                 )}
             </div>

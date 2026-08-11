@@ -54,10 +54,7 @@ const About = () => {
                     >
                         <p className="text-sm md:text-base leading-relaxed text-center lg:text-left text-[var(--text-primary)] font-mono-label tracking-wide">
                             <span className="text-[var(--accent-pink)] mr-2">&gt;&gt;</span>
-                            Profil informatique orienté systèmes d'information, gestion et structuration des données.
-                            J'ai acquis de l'expérience dans le développement d'outils de gestion, l'exploitation de bases de données
-                            et le développement d'applications web et mobiles. Rigoureux et adaptable, je mets mes compétences techniques
-                            au service de la fiabilisation des données, du reporting et de l'amélioration continue des processus.
+                            Passionné par la technologie et les systèmes d'information, je combine la gestion de données avec le développement d'applications web et mobiles modernes. Fort de mes expériences dans la conception d'outils de gestion et la structuration de bases de données, je mets ma rigueur et ma réactivité au service de solutions fiables, d'un reporting précis, de l'amélioration continue des processus et de l'expérience utilisateur. 
                         </p>
                         <div className="space-y-6">
                             {aboutSections.map((section, i) => (

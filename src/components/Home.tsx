@@ -42,12 +42,12 @@ const Home = () => {
                     </h1>
 
                     {/* Typewriter role */}
-                    <div className="hero-role flex items-center h-12 mb-6">
-                        <span className="font-mono-label font-bold text-2xl md:text-4xl gradient-text tracking-wide">
+                    <div className="hero-role flex items-center h-12 mb-6 max-w-full overflow-hidden">
+                        <span className="font-mono-label font-bold text-lg sm:text-2xl md:text-4xl gradient-text tracking-wide whitespace-nowrap">
                             {text}
                         </span>
                         <span
-                            className="cursor-blink"
+                            className="cursor-blink flex-shrink-0"
                             style={{ opacity: isDeleting ? 0.5 : 1 }}
                         />
                     </div>
