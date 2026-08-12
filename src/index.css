@@ -389,15 +389,74 @@ h1, h2, h3, h4 {
 .hero-left-anim.revealed .hero-cta     { animation: fade-up-in 0.7s ease 0.7s both; }
 
 /* ========================================
-   FLOATING TECH ICON (skills section)
+   SCROLL PROGRESS BAR (pure CSS, no JS)
+   Requires animation-timeline: scroll() support
    ======================================== */
-@keyframes float-icon {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50%      { transform: translateY(-7px) rotate(1.5deg); }
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    z-index: 9999;
+    background: var(--gradient);
+    transform-origin: left center;
+    transform: scaleX(0);
+    pointer-events: none;
 }
-.float-icon {
-    animation: float-icon 3.8s ease-in-out infinite;
-    will-change: transform;
+@supports (animation-timeline: scroll()) {
+    .scroll-progress-bar {
+        animation: scroll-progress-grow linear both;
+        animation-timeline: scroll(root);
+    }
+}
+@keyframes scroll-progress-grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+/* ========================================
+   SCROLL-DRIVEN REVEAL ANIMATIONS
+   animation-timeline: view() = tied to each
+   element's own position in the viewport.
+   Plays forward on scroll down, reverse on up.
+   Supported: Chrome 115+, Edge 115+, FF 114+
+   Fallback: IntersectionObserver (below)
+   ======================================== */
+@keyframes sda-reveal-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes sda-scale-in {
+    from { opacity: 0; transform: scale(0.82) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@supports (animation-timeline: view()) {
+    /* Override all reveal classes with scroll-driven animations */
+    .reveal-hidden,
+    .reveal-left,
+    .reveal-right {
+        animation: sda-reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 45%;
+        transition: none;
+    }
+    .reveal-scale {
+        animation: sda-scale-in linear both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 50%;
+        transition: none;
+    }
+    /* hero entrance is exempt – it uses its own animation */
+    .hero-img-anim,
+    .hero-left-anim .hero-label,
+    .hero-left-anim .hero-name,
+    .hero-left-anim .hero-role,
+    .hero-left-anim .hero-desc,
+    .hero-left-anim .hero-cta {
+        animation: unset;
+        animation-timeline: unset;
+    }
 }
 
 /* ========================================

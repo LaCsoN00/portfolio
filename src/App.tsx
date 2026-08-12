@@ -10,6 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 export default function App() {
   return (
     <div>
+      {/* Scroll progress bar — pure CSS, no JS needed */}
+      <div className="scroll-progress-bar" aria-hidden="true" />
 
       <Navbar />
       <Home />

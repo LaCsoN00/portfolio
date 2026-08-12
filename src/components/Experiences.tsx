@@ -251,8 +251,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
                                 style={{ transitionDelay: `${i * 40}ms` }}
                             >
                                 <div
-                                    className="float-icon w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
-                                    style={{ animationDelay: `${(i % 5) * 0.4}s` }}
+                                    className="w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
                                 >
                                     {skill.image ? (
                                         <img
