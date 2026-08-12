@@ -417,6 +417,42 @@ h1, h2, h3, h4 {
 }
 
 /* ========================================
+   STICKY SCROLL STORYTELLING
+   Used in the Experiences section
+   ======================================== */
+
+/* Giant background chapter number */
+.story-num-bg {
+    font-size: 11rem;
+    line-height: 1;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.05;
+    animation: storyNumIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes storyNumIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 0.05; transform: translateY(0); }
+}
+
+/* Chapter title fade-up on section change */
+.story-title-anim {
+    animation: storyTitleIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes storyTitleIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Active navigation dot */
+.story-dot-active {
+    background: var(--gradient);
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.75), 0 0 6px rgba(236, 72, 153, 0.4);
+}
+
+/* ========================================
    CHIP / BADGE
    ======================================== */
 .chip {

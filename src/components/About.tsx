@@ -33,10 +33,10 @@ const About = () => {
                 <Title title="À propos" className="mb-16" />
                 <div className="flex flex-col lg:flex-row items-center gap-16 justify-center">
 
-                    {/* Image — slides from left */}
+                    {/* Image — sticky while content scrolls */}
                     <div
                         ref={imgRef}
-                        className={`hidden lg:block w-[380px] flex-shrink-0 sda-reveal ${imgVisible ? 'revealed' : ''}`}
+                        className={`hidden lg:block w-[340px] flex-shrink-0 sticky top-20 self-start sda-reveal ${imgVisible ? 'revealed' : ''}`}
                     >
                         <div className="relative p-1 rounded-2xl bg-[var(--gradient)]">
                             <img
