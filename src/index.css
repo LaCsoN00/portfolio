@@ -69,7 +69,6 @@ html {
         linear-gradient(var(--grid-line) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 64px 64px;
-    overflow: hidden;
 }
 .grid-hero-bg::after {
     content: '';

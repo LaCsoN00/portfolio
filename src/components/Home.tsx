@@ -50,7 +50,9 @@ const Home = () => {
         pauseDuration: 1800,
     });
 
-    const { ref: leftRef, isVisible: leftVisible } = useScrollReveal({ threshold: 0.1 });
+    const { ref: leftRef, isVisible: leftVisible } = useScrollReveal({ threshold: 0.1, once: true });
+    const { ref: rightRef, isVisible: rightVisible } = useScrollReveal({ threshold: 0.1, once: true });
+    const { ref: mobileRef, isVisible: mobileVisible } = useScrollReveal({ threshold: 0.1, once: true });
 
     return (
         <div className="grid-hero-bg relative">
@@ -115,7 +117,10 @@ const Home = () => {
                         </div>
 
                         {/* Mobile Profile Photo (only visible on mobile screens) */}
-                        <div className="lg:hidden flex justify-center items-center mt-12 py-4">
+                        <div
+                            ref={mobileRef}
+                            className={`lg:hidden flex justify-center items-center mt-12 py-4 hero-img-anim ${mobileVisible ? 'revealed' : ''}`}
+                        >
                             <ProfileRing />
                         </div>
                     </section>
@@ -126,7 +131,10 @@ const Home = () => {
                 </div>
 
                 {/* Right Side Column: Desktop Sticky Profile Ring & Badges */}
-                <div className="hidden lg:flex w-5/12 justify-center lg:justify-end items-center sticky top-28 self-start z-20 py-8">
+                <div
+                    ref={rightRef}
+                    className={`hidden lg:flex w-5/12 justify-center lg:justify-end items-center sticky top-28 self-start z-20 py-8 hero-img-anim ${rightVisible ? 'revealed' : ''}`}
+                >
                     <ProfileRing />
                 </div>
 
