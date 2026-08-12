@@ -1,4 +1,3 @@
-import About from "./components/About";
 import Experiences from "./components/Experiences";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -16,8 +15,6 @@ export default function App() {
       <Navbar />
       <Home />
 
-      <About />
-
       <Experiences />
 
       <Projects />
@@ -29,5 +26,5 @@ export default function App() {
       <ScrollToTop />
 
     </div>
-  )
+  );
 }

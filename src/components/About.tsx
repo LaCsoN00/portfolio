@@ -1,4 +1,4 @@
-import Title from "./Title"
+import Title from "./Title";
 import { Code, Network, Database } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
@@ -24,63 +24,42 @@ const aboutSections = [
 ];
 
 const About = () => {
-    const { ref: imgRef, isVisible: imgVisible } = useScrollReveal({ threshold: 0.2 })
-    const { ref: textRef, isVisible: textVisible } = useScrollReveal({ threshold: 0.15 })
+    const { ref: textRef, isVisible: textVisible } = useScrollReveal({ threshold: 0.15 });
 
     return (
-        <section className="bg-[var(--bg-deep)] py-32 scan-section" id="About">
-            <div className="max-w-6xl mx-auto px-6">
-                <Title title="À propos" className="mb-16" />
-                <div className="flex flex-col lg:flex-row items-start gap-16 justify-center">
-
-                    {/* Image — sticky while content scrolls */}
-                    <div
-                        ref={imgRef}
-                        className={`hidden lg:block w-[340px] flex-shrink-0 sticky top-20 self-start sda-reveal ${imgVisible ? 'revealed' : ''}`}
-                    >
-                        <div className="relative p-1 rounded-2xl bg-[var(--gradient)]">
-                            <img
-                                src="/profil.jpeg"
-                                alt="Luc-Jeeffel MABALA MOUNGUENGUI"
-                                className="w-full h-[480px] object-cover object-[50%_15%] rounded-xl"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Text content — slides from right */}
-                    <div
-                        ref={textRef}
-                        className={`flex-1 max-w-2xl space-y-10 sda-reveal ${textVisible ? 'revealed' : ''}`}
-                    >
-                        <p className="text-sm md:text-base leading-relaxed text-center lg:text-left text-[var(--text-primary)] font-mono-label tracking-wide">
-                            <span className="text-[var(--accent-pink)] mr-2">&gt;&gt;</span>
-                            Passionné par la technologie et les systèmes d'information, je combine la gestion de données avec le développement d'applications web et mobiles modernes. Fort de mes expériences dans la conception d'outils de gestion et la structuration de bases de données, je mets ma rigueur et ma réactivité au service de solutions fiables, d'un reporting précis, de l'amélioration continue des processus et de l'expérience utilisateur. 
-                        </p>
-                        <div className="space-y-6">
-                            {aboutSections.map((section, i) => (
-                                <AboutCard
-                                    key={section.id}
-                                    section={section}
-                                    delay={i * 150}
-                                    parentVisible={textVisible}
-                                />
-                            ))}
-                        </div>
-                    </div>
+        <section className="scan-section scroll-mt-32 pt-8 pb-16" id="About">
+            <Title title="À propos" className="mb-10 text-center lg:text-left" />
+            <div
+                ref={textRef}
+                className={`space-y-8 sda-reveal ${textVisible ? 'revealed' : ''}`}
+            >
+                <p className="text-sm md:text-base leading-relaxed text-center lg:text-left text-[var(--text-primary)] font-mono-label tracking-wide">
+                    <span className="text-[var(--accent-pink)] mr-2">&gt;&gt;</span>
+                    Passionné par la technologie et les systèmes d'information, je combine la gestion de données avec le développement d'applications web et mobiles modernes. Fort de mes expériences dans la conception d'outils de gestion et la structuration de bases de données, je mets ma rigueur et ma réactivité au service de solutions fiables, d'un reporting précis, de l'amélioration continue des processus et de l'expérience utilisateur. 
+                </p>
+                <div className="space-y-6">
+                    {aboutSections.map((section, i) => (
+                        <AboutCard
+                            key={section.id}
+                            section={section}
+                            delay={i * 150}
+                            parentVisible={textVisible}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
 interface AboutCardProps {
-    section: { id: number; title: string; description: string; icon: React.ReactNode }
-    delay: number
-    parentVisible: boolean
+    section: { id: number; title: string; description: string; icon: React.ReactNode };
+    delay: number;
+    parentVisible: boolean;
 }
 
 const AboutCard = ({ section, delay, parentVisible }: AboutCardProps) => {
-    const { ref, isVisible } = useScrollReveal({ threshold: 0.2 })
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
 
     return (
         <div
@@ -104,8 +83,7 @@ const AboutCard = ({ section, delay, parentVisible }: AboutCardProps) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default About
-
+export default About;
