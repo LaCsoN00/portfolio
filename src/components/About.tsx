@@ -31,7 +31,7 @@ const About = () => {
         <section className="bg-[var(--bg-deep)] py-32 scan-section" id="About">
             <div className="max-w-6xl mx-auto px-6">
                 <Title title="À propos" className="mb-16" />
-                <div className="flex flex-col lg:flex-row items-center gap-16 justify-center">
+                <div className="flex flex-col lg:flex-row items-start gap-16 justify-center">
 
                     {/* Image — sticky while content scrolls */}
                     <div

@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react"
-import Title from "./Title"
-import { useScrollReveal } from "../hooks/useScrollReveal"
-import { GraduationCap, Award, Globe } from "lucide-react"
+import { useEffect, useRef, useState } from "react";
+import Title from "./Title";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import { GraduationCap, Award, Globe, Briefcase, Code, BookOpen, Layers } from "lucide-react";
 
 import imgCSS from "../assets/techno/css.png";
 import imgJS from "../assets/techno/js.png";
@@ -21,32 +21,32 @@ import { FaReact, FaPython, FaWordpress, FaDocker, FaGithub, FaLinux, FaBrain } 
 import { SiVuedotjs, SiPostgresql, SiMysql, SiFirebase, SiSupabase, SiCisco } from "react-icons/si";
 
 /* ─────────────────────────────────────────────
-   DATA
+   DATA DEFINITIONS
    ───────────────────────────────────────────── */
 
 const allTechnologies = [
-    { id: 1,  name: "HTML",        image: imgHTML },
-    { id: 2,  name: "CSS",         image: imgCSS },
-    { id: 3,  name: "JavaScript",  image: imgJS },
-    { id: 4,  name: "TypeScript",  image: imgTYPE },
-    { id: 5,  name: "React",       image: imgREACT },
-    { id: 6,  name: "React Native",icon: <FaReact className="text-[#61DAFB] w-8 h-8" /> },
-    { id: 7,  name: "Vue.js",      icon: <SiVuedotjs className="text-[#4FC08D] w-8 h-8" /> },
-    { id: 8,  name: "Next.js",     image: imgNEXT },
-    { id: 9,  name: "Node.js",     image: imgNODE },
-    { id: 10, name: "Tailwind CSS",image: imgTAILWIND },
-    { id: 11, name: "Prisma",      image: imgPRISMA },
-    { id: 12, name: "Python",      icon: <FaPython className="text-[#3776AB] w-8 h-8" /> },
-    { id: 13, name: "PostgreSQL",  icon: <SiPostgresql className="text-[#4169E1] w-8 h-8" /> },
-    { id: 14, name: "MySQL",       icon: <SiMysql className="text-[#4479A1] w-8 h-8" /> },
-    { id: 15, name: "Firebase",    icon: <SiFirebase className="text-[#FFCA28] w-8 h-8" /> },
-    { id: 16, name: "Supabase",    icon: <SiSupabase className="text-[#3ECF8E] w-8 h-8" /> },
-    { id: 17, name: "Docker",      icon: <FaDocker className="text-[#2496ED] w-8 h-8" /> },
-    { id: 18, name: "GitHub",      icon: <FaGithub className="text-white w-8 h-8" /> },
-    { id: 19, name: "Linux",       icon: <FaLinux className="text-[#FCC624] w-8 h-8" /> },
-    { id: 20, name: "WordPress",   icon: <FaWordpress className="text-[#21759B] w-8 h-8" /> },
-    { id: 21, name: "CCNAv7",      icon: <SiCisco className="text-[#1BA0D7] w-8 h-8" /> },
-    { id: 22, name: "Modèles IA",  icon: <FaBrain className="text-[#EC4899] w-8 h-8" /> },
+    { id: 1, name: "HTML", image: imgHTML },
+    { id: 2, name: "CSS", image: imgCSS },
+    { id: 3, name: "JavaScript", image: imgJS },
+    { id: 4, name: "TypeScript", image: imgTYPE },
+    { id: 5, name: "React", image: imgREACT },
+    { id: 6, name: "React Native", icon: <FaReact className="text-[#61DAFB] w-8 h-8" /> },
+    { id: 7, name: "Vue.js", icon: <SiVuedotjs className="text-[#4FC08D] w-8 h-8" /> },
+    { id: 8, name: "Next.js", image: imgNEXT },
+    { id: 9, name: "Node.js", image: imgNODE },
+    { id: 10, name: "Tailwind CSS", image: imgTAILWIND },
+    { id: 11, name: "Prisma", image: imgPRISMA },
+    { id: 12, name: "Python", icon: <FaPython className="text-[#3776AB] w-8 h-8" /> },
+    { id: 13, name: "PostgreSQL", icon: <SiPostgresql className="text-[#4169E1] w-8 h-8" /> },
+    { id: 14, name: "MySQL", icon: <SiMysql className="text-[#4479A1] w-8 h-8" /> },
+    { id: 15, name: "Firebase", icon: <SiFirebase className="text-[#FFCA28] w-8 h-8" /> },
+    { id: 16, name: "Supabase", icon: <SiSupabase className="text-[#3ECF8E] w-8 h-8" /> },
+    { id: 17, name: "Docker", icon: <FaDocker className="text-[#2496ED] w-8 h-8" /> },
+    { id: 18, name: "GitHub", icon: <FaGithub className="text-white w-8 h-8" /> },
+    { id: 19, name: "Linux", icon: <FaLinux className="text-[#FCC624] w-8 h-8" /> },
+    { id: 20, name: "WordPress", icon: <FaWordpress className="text-[#21759B] w-8 h-8" /> },
+    { id: 21, name: "CCNAv7", icon: <SiCisco className="text-[#1BA0D7] w-8 h-8" /> },
+    { id: 22, name: "Modèles IA", icon: <FaBrain className="text-[#EC4899] w-8 h-8" /> },
 ];
 
 const experiences = [
@@ -123,25 +123,53 @@ const certificationsList = [
     },
 ];
 
-/* Chapter metadata for the sticky panel */
+/* Sticky Chapter Configuration */
 const CHAPTERS = [
-    { id: "prof", num: "01", line1: "Parcours",        line2: "Professionnel", short: "Expériences" },
-    { id: "edu",  num: "02", line1: "Éducation &",     line2: "Formation",     short: "Formation" },
-    { id: "cert", num: "03", line1: "Certifications",  line2: "& Langues",     short: "Certifications" },
-    { id: "tech", num: "04", line1: "Technologies",    line2: "",              short: "Technologies" },
+    {
+        id: "prof",
+        num: "01",
+        title: "Parcours Professionnel",
+        subtitle: "Expériences terrain & gestion de projet",
+        icon: <Briefcase className="w-5 h-5 text-[var(--accent-pink)]" />,
+        summary: "3 expériences clés en entreprise combinant développement web, gestion de bases de données MySQL, assistance technique et relation client."
+    },
+    {
+        id: "edu",
+        num: "02",
+        title: "Éducation & Formation",
+        subtitle: "Parcours académique & diplômes",
+        icon: <BookOpen className="w-5 h-5 text-[var(--accent-purple)]" />,
+        summary: "Formation spécialisée en Métiers du Multimédia et de l'Internet (MMI) à l'INPTIC et Baccalauréat Économie."
+    },
+    {
+        id: "cert",
+        num: "03",
+        title: "Certifications & Langues",
+        subtitle: "Reconnaissances & compétences linguistiques",
+        icon: <Award className="w-5 h-5 text-[var(--accent-pink)]" />,
+        summary: "Certification réseau officielle Cisco CCNAv7 et maîtrise de la langue française avec notions d'anglais technique."
+    },
+    {
+        id: "tech",
+        num: "04",
+        title: "Technologies & Stack",
+        subtitle: "Outils, frameworks & bases de données",
+        icon: <Code className="w-5 h-5 text-[var(--accent-mid)]" />,
+        summary: "Ensemble des technologies maîtrisées : React, Node.js, TypeScript, Next.js, MySQL, PostgreSQL, Docker, Linux & Réseaux."
+    },
 ];
 
 /* ─────────────────────────────────────────────
-   CARD COMPONENTS
+   SUB COMPONENTS
    ───────────────────────────────────────────── */
 
 const ExperienceCard = ({ experience }: { experience: typeof experiences[0] }) => {
     const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
     return (
         <div ref={ref} className={`sda-reveal ${isVisible ? "revealed" : ""}`}>
-            <div className="glass-card p-6 group">
+            <div className="glass-card p-6 group transition-all duration-300 hover:border-[var(--accent-purple)]/50">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
-                    <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5">
+                    <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5 shadow-inner">
                         <img src={experience.image} alt={experience.company} className="object-contain max-h-full max-w-full rounded-md" />
                     </div>
                     <div>
@@ -163,7 +191,7 @@ const ExperienceCard = ({ experience }: { experience: typeof experiences[0] }) =
                 </div>
                 <ul className="space-y-2 text-[var(--text-primary)] font-mono-label text-xs md:text-sm leading-relaxed mt-4 list-disc list-outside ml-4 tracking-wide">
                     {experience.description.map((desc, i) => (
-                        <li key={i} className="pl-2">{desc}</li>
+                        <li key={i} className="pl-1">{desc}</li>
                     ))}
                 </ul>
                 {experience.stack && (
@@ -185,7 +213,7 @@ const EducationCard = ({ edu }: { edu: typeof educationList[0] }) => {
     const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
     return (
         <div ref={ref} className={`sda-reveal ${isVisible ? "revealed" : ""}`}>
-            <div className="glass-card p-5 flex items-start gap-4">
+            <div className="glass-card p-5 flex items-start gap-4 hover:border-[var(--accent-pink)]/40 transition-all duration-300">
                 <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
                     <GraduationCap className="w-5 h-5" />
                 </div>
@@ -203,7 +231,7 @@ const CertificationCard = ({ cert }: { cert: typeof certificationsList[0] }) => 
     const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
     return (
         <div ref={ref} className={`sda-reveal ${isVisible ? "revealed" : ""}`}>
-            <div className="glass-card p-5 flex items-start gap-4">
+            <div className="glass-card p-5 flex items-start gap-4 hover:border-[var(--accent-purple)]/40 transition-all duration-300">
                 <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-purple)] flex-shrink-0">
                     <Award className="w-5 h-5" />
                 </div>
@@ -223,7 +251,7 @@ const TechIcon = ({ skill, index }: { skill: typeof allTechnologies[0]; index: n
         <div
             ref={ref}
             className={`flex flex-col items-center w-20 sda-reveal ${isVisible ? "revealed" : ""}`}
-            style={{ transitionDelay: `${index * 35}ms` }}
+            style={{ transitionDelay: `${index * 30}ms` }}
         >
             <div className="w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center">
                 {skill.image
@@ -236,15 +264,8 @@ const TechIcon = ({ skill, index }: { skill: typeof allTechnologies[0]; index: n
     );
 };
 
-/* Section label used in mobile layout */
-const MobileSectionLabel = ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-sm font-bold mb-8 text-[var(--accent-mid)] font-mono-label tracking-widest uppercase">
-        {children}
-    </h2>
-);
-
 /* ─────────────────────────────────────────────
-   MAIN COMPONENT
+   MAIN STICKY SCROLLETYLLING COMPONENT
    ───────────────────────────────────────────── */
 
 interface ExperiencesProps { className?: string }
@@ -253,205 +274,296 @@ const Experiences = ({ className }: ExperiencesProps) => {
     const [activeIdx, setActiveIdx] = useState(0);
     const sectionRefs = useRef<(HTMLDivElement | null)[]>([null, null, null, null]);
 
-    /* Track which chapter section is visible */
+    /* Active section observer */
     useEffect(() => {
-        const observers = CHAPTERS.map((_, i) => {
-            const el = sectionRefs.current[i];
-            if (!el) return null;
-            const obs = new IntersectionObserver(
-                ([entry]) => { if (entry.isIntersecting) setActiveIdx(i); },
-                { rootMargin: "0px 0px -45% 0px", threshold: 0.05 }
+        const observers: IntersectionObserver[] = [];
+
+        sectionRefs.current.forEach((el, index) => {
+            if (!el) return;
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setActiveIdx(index);
+                        }
+                    });
+                },
+                {
+                    rootMargin: "-15% 0px -45% 0px",
+                    threshold: 0.1,
+                }
             );
-            obs.observe(el);
-            return obs;
+            observer.observe(el);
+            observers.push(observer);
         });
-        return () => observers.forEach(obs => obs?.disconnect());
+
+        return () => {
+            observers.forEach((obs) => obs.disconnect());
+        };
     }, []);
 
     const scrollToSection = (i: number) => {
-        sectionRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+        const target = sectionRefs.current[i];
+        if (target) {
+            const yOffset = -90;
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
+        }
     };
 
-    const languesCard = (
-        <div className="glass-card p-5 flex items-center gap-4">
-            <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
-                <Globe className="w-5 h-5" />
-            </div>
-            <div className="font-mono-label text-xs md:text-sm text-[var(--text-muted)] flex flex-wrap gap-4">
-                <span><strong className="text-white">Français :</strong> Excellent</span>
-                <span>•</span>
-                <span><strong className="text-white">Anglais :</strong> Notion</span>
-            </div>
-        </div>
-    );
+    const currentChapter = CHAPTERS[activeIdx];
+    const progressPercent = Math.round(((activeIdx + 1) / CHAPTERS.length) * 100);
 
     return (
         <section
             id="Experiences"
-            className={`bg-[var(--bg-deep)] grid-line-bg border-t border-white/5 ${className || ""}`}
+            className={`bg-[var(--bg-deep)] grid-line-bg border-t border-white/5 py-24 ${className || ""}`}
         >
-            <div className="pt-24 pb-4">
-                <Title title="Expériences & Compétences" className="mb-0" />
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-12">
+                <Title title="Expériences & Compétences" className="mb-4" />
+                <p className="text-center text-xs md:text-sm font-mono-label text-[var(--text-muted)] tracking-wide max-w-xl mx-auto">
+                    Découvrez mon parcours interactif au fil du défilement.
+                </p>
             </div>
 
             {/* ══════════════════════════════════════════════
-                DESKTOP — Sticky 2-column storytelling
+                MOBILE STICKY CONTROL BAR (Pinned on Mobile)
                ══════════════════════════════════════════════ */}
-            <div className="hidden lg:flex max-w-6xl mx-auto px-6">
-
-                {/* ── LEFT: STICKY PANEL ── */}
-                <div className="w-[38%] flex-shrink-0 relative">
-                    <div className="sticky top-0 h-screen flex flex-col justify-center pr-10 xl:pr-14 overflow-hidden">
-
-                        {/* Giant faded chapter number */}
-                        <span
-                            key={`num-${activeIdx}`}
-                            className="story-num-bg absolute bottom-10 left-0 font-display font-extrabold select-none pointer-events-none"
+            <div className="lg:hidden sticky top-16 z-30 bg-[#0D0B1E]/95 backdrop-blur-xl border-y border-white/10 px-4 py-3 shadow-2xl mb-8">
+                <div className="flex items-center justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 rounded-full bg-[var(--accent-purple)]/20 border border-[var(--accent-purple)]/40 text-[var(--accent-pink)] font-mono-label text-xs font-bold">
+                            {currentChapter.num} / 04
+                        </span>
+                        <span className="font-mono-label font-bold text-white text-xs sm:text-sm truncate">
+                            {currentChapter.title}
+                        </span>
+                    </div>
+                    <span className="font-mono-label text-[11px] text-[var(--accent-mid)] font-bold">
+                        {progressPercent}%
+                    </span>
+                </div>
+                {/* Horizontal Progress Bar */}
+                <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mb-2">
+                    <div
+                        className="h-full bg-[var(--gradient)] transition-all duration-500 ease-out"
+                        style={{ width: `${progressPercent}%` }}
+                    />
+                </div>
+                {/* Quick Dot Jump */}
+                <div className="flex justify-between items-center px-1">
+                    {CHAPTERS.map((ch, i) => (
+                        <button
+                            key={ch.id}
+                            onClick={() => scrollToSection(i)}
+                            className={`text-[10px] font-mono-label px-2 py-1 rounded-md transition-all ${
+                                i === activeIdx
+                                    ? "bg-white/15 text-white font-bold border border-white/20"
+                                    : "text-[var(--text-dim)]"
+                            }`}
                         >
-                            {CHAPTERS[activeIdx].num}
+                            {ch.num}. {ch.title.split(" ")[0]}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* MAIN LAYOUT WRAPPER (Relative container for sticky positioning) */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 relative flex flex-col lg:flex-row items-start gap-12">
+
+                {/* ── DESKTOP STICKY LEFT DASHBOARD PANEL ── */}
+                <div className="hidden lg:block w-5/12 sticky top-24 self-start z-20">
+                    <div className="glass-card p-8 border border-white/15 shadow-2xl relative overflow-hidden bg-[#101224]/90 backdrop-blur-xl rounded-2xl">
+                        
+                        {/* Background Number Watermark */}
+                        <span className="absolute -bottom-6 -right-4 font-display font-extrabold text-9xl text-white/5 select-none pointer-events-none">
+                            {currentChapter.num}
                         </span>
 
-                        {/* Chapter counter */}
-                        <p className="text-xs font-mono-label tracking-[0.3em] uppercase text-[var(--accent-mid)] mb-4 opacity-80">
-                            // chapitre {CHAPTERS[activeIdx].num} sur 04
-                        </p>
+                        {/* Top Tag */}
+                        <div className="flex items-center justify-between mb-6">
+                            <span className="flex items-center gap-2 font-mono-label text-xs tracking-widest text-[var(--accent-mid)] uppercase font-bold">
+                                <Layers className="w-4 h-4 text-[var(--accent-pink)]" />
+                                &lt;SCROLLETYLLING /&gt;
+                            </span>
+                            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono-label text-[var(--accent-pink)] font-bold">
+                                {currentChapter.num} / 04
+                            </span>
+                        </div>
 
-                        {/* Chapter title — re-mounts on change to trigger animation */}
-                        <div key={`title-${activeIdx}`} className="story-title-anim mb-10">
-                            <h2 className="font-display font-extrabold text-4xl xl:text-5xl text-white leading-tight">
-                                {CHAPTERS[activeIdx].line1}
-                            </h2>
-                            {CHAPTERS[activeIdx].line2 && (
-                                <h2 className="font-display font-extrabold text-4xl xl:text-5xl gradient-text leading-tight">
-                                    {CHAPTERS[activeIdx].line2}
+                        {/* Dynamic Active Chapter Icon & Title */}
+                        <div key={`chapter-head-${activeIdx}`} className="space-y-2 mb-6 transition-all duration-300">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
+                                    {currentChapter.icon}
+                                </div>
+                                <h2 className="font-display font-extrabold text-2xl xl:text-3xl text-white tracking-wide">
+                                    {currentChapter.title}
                                 </h2>
-                            )}
+                            </div>
+                            <p className="text-xs font-mono-label text-[var(--accent-mid)] tracking-wide">
+                                {currentChapter.subtitle}
+                            </p>
                         </div>
 
-                        {/* Navigation dots */}
-                        <nav className="flex flex-col gap-5">
-                            {CHAPTERS.map((ch, i) => (
-                                <button
-                                    key={ch.id}
-                                    onClick={() => scrollToSection(i)}
-                                    className="flex items-center gap-4 group text-left focus:outline-none"
-                                    aria-label={`Aller à ${ch.short}`}
-                                >
-                                    <span className={`flex-shrink-0 rounded-full transition-all duration-300 ${
-                                        i === activeIdx
-                                            ? "story-dot-active w-4 h-4"
-                                            : i < activeIdx
-                                                ? "w-2.5 h-2.5 ml-[3px] bg-[var(--accent-purple)] opacity-50"
-                                                : "w-2.5 h-2.5 ml-[3px] bg-white/15 group-hover:bg-white/30"
-                                    }`} />
-                                    <span className={`font-mono-label text-sm tracking-wide transition-colors duration-300 ${
-                                        i === activeIdx
-                                            ? "text-white font-bold"
-                                            : "text-[var(--text-dim)] group-hover:text-[var(--text-muted)]"
-                                    }`}>
-                                        {i < activeIdx && (
-                                            <span className="mr-2 text-[var(--accent-purple)] text-xs">✓</span>
+                        {/* Active Chapter Summary Box */}
+                        <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+                            <p className="text-xs font-mono-label leading-relaxed text-[var(--text-primary)] tracking-wide">
+                                {currentChapter.summary}
+                            </p>
+                        </div>
+
+                        {/* Interactive Navigation List */}
+                        <div className="space-y-3 mb-8 font-mono-label">
+                            {CHAPTERS.map((ch, i) => {
+                                const isActive = i === activeIdx;
+                                const isPassed = i < activeIdx;
+                                return (
+                                    <button
+                                        key={ch.id}
+                                        onClick={() => scrollToSection(i)}
+                                        className={`w-full text-left p-3 rounded-xl transition-all duration-300 flex items-center justify-between border ${
+                                            isActive
+                                                ? "bg-white/10 border-[var(--accent-purple)] text-white shadow-lg shadow-purple-900/20 translate-x-1"
+                                                : isPassed
+                                                    ? "bg-white/5 border-transparent text-[var(--text-muted)] hover:bg-white/10"
+                                                    : "bg-transparent border-transparent text-[var(--text-dim)] hover:text-[var(--text-muted)]"
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                                                isActive
+                                                    ? "bg-[var(--gradient)] text-white"
+                                                    : isPassed
+                                                        ? "bg-white/10 text-[var(--accent-pink)]"
+                                                        : "bg-white/5 text-[var(--text-dim)]"
+                                            }`}>
+                                                {isPassed ? "✓" : ch.num}
+                                            </span>
+                                            <span className="text-xs font-bold tracking-wide">{ch.title}</span>
+                                        </div>
+                                        {isActive && (
+                                            <span className="w-2 h-2 rounded-full bg-[var(--accent-pink)] animate-ping" />
                                         )}
-                                        {ch.short}
-                                    </span>
-                                </button>
-                            ))}
-                        </nav>
-
-                        {/* Vertical progress line */}
-                        <div className="absolute left-0 top-[18%] w-[2px] h-[64%] rounded-full bg-white/5">
-                            <div
-                                className="w-full rounded-full transition-all duration-700 ease-in-out"
-                                style={{
-                                    height: `${((activeIdx + 1) / CHAPTERS.length) * 100}%`,
-                                    background: "var(--gradient)",
-                                    boxShadow: "0 0 10px rgba(168,85,247,0.5)",
-                                }}
-                            />
+                                    </button>
+                                );
+                            })}
                         </div>
+
+                        {/* Progress Bar */}
+                        <div className="space-y-2">
+                            <div className="flex justify-between text-xs font-mono-label">
+                                <span className="text-[var(--text-dim)]">Progression</span>
+                                <span className="text-[var(--accent-mid)] font-bold">{progressPercent}%</span>
+                            </div>
+                            <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden p-0.5">
+                                <div
+                                    className="h-full bg-[var(--gradient)] rounded-full transition-all duration-500 ease-out"
+                                    style={{ width: `${progressPercent}%` }}
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                {/* Thin vertical divider */}
-                <div className="w-px bg-white/5 self-stretch mx-2 flex-shrink-0" />
+                {/* ── RIGHT SCROLLABLE CONTENT COLUMN ── */}
+                <div className="w-full lg:w-7/12 space-y-24">
 
-                {/* ── RIGHT: SCROLLABLE SECTIONS ── */}
-                <div className="flex-1 pl-12 xl:pl-16 min-w-0">
-
-                    {/* Section 01 — Parcours Professionnel */}
+                    {/* BLOCK 01: Parcours Professionnel */}
                     <div
-                        ref={el => { sectionRefs.current[0] = el; }}
-                        className="min-h-screen py-28 flex flex-col justify-center space-y-8"
+                        ref={(el) => (sectionRefs.current[0] = el)}
+                        className="scroll-mt-32 space-y-8"
                     >
-                        {experiences.map(exp => <ExperienceCard key={exp.id} experience={exp} />)}
+                        <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                            <span className="px-3 py-1 rounded-full bg-[var(--accent-purple)]/20 text-[var(--accent-pink)] font-mono-label font-bold text-xs">
+                                01
+                            </span>
+                            <h2 className="font-display font-extrabold text-2xl text-white tracking-wide">
+                                Parcours Professionnel
+                            </h2>
+                        </div>
+                        <div className="space-y-6">
+                            {experiences.map((exp) => (
+                                <ExperienceCard key={exp.id} experience={exp} />
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Section 02 — Éducation & Formation */}
+                    {/* BLOCK 02: Éducation & Formation */}
                     <div
-                        ref={el => { sectionRefs.current[1] = el; }}
-                        className="min-h-screen py-28 flex flex-col justify-center space-y-6"
+                        ref={(el) => (sectionRefs.current[1] = el)}
+                        className="scroll-mt-32 space-y-8"
                     >
-                        {educationList.map(edu => <EducationCard key={edu.id} edu={edu} />)}
+                        <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                            <span className="px-3 py-1 rounded-full bg-[var(--accent-purple)]/20 text-[var(--accent-pink)] font-mono-label font-bold text-xs">
+                                02
+                            </span>
+                            <h2 className="font-display font-extrabold text-2xl text-white tracking-wide">
+                                Éducation &amp; Formation
+                            </h2>
+                        </div>
+                        <div className="space-y-4">
+                            {educationList.map((edu) => (
+                                <EducationCard key={edu.id} edu={edu} />
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Section 03 — Certifications & Langues */}
+                    {/* BLOCK 03: Certifications & Langues */}
                     <div
-                        ref={el => { sectionRefs.current[2] = el; }}
-                        className="min-h-screen py-28 flex flex-col justify-center space-y-6"
+                        ref={(el) => (sectionRefs.current[2] = el)}
+                        className="scroll-mt-32 space-y-8"
                     >
-                        {certificationsList.map(cert => <CertificationCard key={cert.id} cert={cert} />)}
-                        {languesCard}
+                        <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                            <span className="px-3 py-1 rounded-full bg-[var(--accent-purple)]/20 text-[var(--accent-pink)] font-mono-label font-bold text-xs">
+                                03
+                            </span>
+                            <h2 className="font-display font-extrabold text-2xl text-white tracking-wide">
+                                Certifications &amp; Langues
+                            </h2>
+                        </div>
+                        <div className="space-y-4">
+                            {certificationsList.map((cert) => (
+                                <CertificationCard key={cert.id} cert={cert} />
+                            ))}
+                            <div className="sda-reveal revealed">
+                                <div className="glass-card p-5 flex items-center gap-4">
+                                    <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
+                                        <Globe className="w-5 h-5" />
+                                    </div>
+                                    <div className="font-mono-label text-xs md:text-sm text-[var(--text-muted)] flex flex-wrap gap-4">
+                                        <span><strong className="text-white">Français :</strong> Excellent</span>
+                                        <span>•</span>
+                                        <span><strong className="text-white">Anglais :</strong> Notion</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Section 04 — Technologies */}
+                    {/* BLOCK 04: Technologies */}
                     <div
-                        ref={el => { sectionRefs.current[3] = el; }}
-                        className="min-h-screen py-28 flex flex-col justify-center"
+                        ref={(el) => (sectionRefs.current[3] = el)}
+                        className="scroll-mt-32 space-y-8"
                     >
-                        <div className="flex flex-wrap gap-5 justify-start">
+                        <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                            <span className="px-3 py-1 rounded-full bg-[var(--accent-purple)]/20 text-[var(--accent-pink)] font-mono-label font-bold text-xs">
+                                04
+                            </span>
+                            <h2 className="font-display font-extrabold text-2xl text-white tracking-wide">
+                                Technologies &amp; Outils
+                            </h2>
+                        </div>
+                        <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
                             {allTechnologies.map((skill, i) => (
                                 <TechIcon key={skill.id} skill={skill} index={i} />
                             ))}
                         </div>
                     </div>
-                </div>
-            </div>
 
-            {/* ══════════════════════════════════════════════
-                MOBILE — Vertical single-column
-               ══════════════════════════════════════════════ */}
-            <div className="lg:hidden max-w-2xl mx-auto px-5 pb-20 space-y-20 pt-8">
-
-                <div>
-                    <MobileSectionLabel>&lt;Parcours Professionnel /&gt;</MobileSectionLabel>
-                    <div className="space-y-8">
-                        {experiences.map(exp => <ExperienceCard key={exp.id} experience={exp} />)}
-                    </div>
                 </div>
 
-                <div>
-                    <MobileSectionLabel>&lt;Éducation &amp; Formation /&gt;</MobileSectionLabel>
-                    <div className="space-y-4">
-                        {educationList.map(edu => <EducationCard key={edu.id} edu={edu} />)}
-                    </div>
-                </div>
-
-                <div>
-                    <MobileSectionLabel>&lt;Certifications &amp; Langues /&gt;</MobileSectionLabel>
-                    <div className="space-y-4">
-                        {certificationsList.map(cert => <CertificationCard key={cert.id} cert={cert} />)}
-                        {languesCard}
-                    </div>
-                </div>
-
-                <div>
-                    <MobileSectionLabel>&lt;Technologies /&gt;</MobileSectionLabel>
-                    <div className="flex flex-wrap gap-4 justify-center">
-                        {allTechnologies.map((skill, i) => (
-                            <TechIcon key={skill.id} skill={skill} index={i} />
-                        ))}
-                    </div>
-                </div>
             </div>
         </section>
     );
