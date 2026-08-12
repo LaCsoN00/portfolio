@@ -272,34 +272,46 @@ interface ExperiencesProps { className?: string }
 
 const Experiences = ({ className }: ExperiencesProps) => {
     const [activeIdx, setActiveIdx] = useState(0);
+    const [scrollProgress, setScrollProgress] = useState(0);
     const sectionRefs = useRef<(HTMLDivElement | null)[]>([null, null, null, null]);
 
-    /* Active section observer */
+    /* Scroll tracking: updates activeIdx (0 -> 3) and progress bar (0% -> 100%) */
     useEffect(() => {
-        const observers: IntersectionObserver[] = [];
+        const handleScroll = () => {
+            const firstEl = sectionRefs.current[0];
+            const lastEl = sectionRefs.current[sectionRefs.current.length - 1];
+            if (!firstEl || !lastEl) return;
 
-        sectionRefs.current.forEach((el, index) => {
-            if (!el) return;
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setActiveIdx(index);
-                        }
-                    });
-                },
-                {
-                    rootMargin: "-15% 0px -45% 0px",
-                    threshold: 0.1,
+            // 1. Update active section index (0, 1, 2, 3)
+            let currentActive = 0;
+            sectionRefs.current.forEach((el, index) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.45) {
+                    currentActive = index;
                 }
-            );
-            observer.observe(el);
-            observers.push(observer);
-        });
+            });
+            setActiveIdx(currentActive);
 
-        return () => {
-            observers.forEach((obs) => obs.disconnect());
+            // 2. Calculate continuous scroll progress percentage (0% -> 100%)
+            const firstTop = firstEl.getBoundingClientRect().top + window.scrollY;
+            const lastBottom = lastEl.getBoundingClientRect().bottom + window.scrollY;
+            const viewportHeight = window.innerHeight;
+
+            const startY = firstTop - 150;
+            const endY = lastBottom - viewportHeight + 100;
+            const totalDistance = endY - startY;
+
+            if (totalDistance <= 0) return;
+
+            const currentY = window.scrollY - startY;
+            const pct = Math.min(Math.max(Math.round((currentY / totalDistance) * 100), 0), 100);
+            setScrollProgress(pct);
         };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const scrollToSection = (i: number) => {
@@ -312,7 +324,6 @@ const Experiences = ({ className }: ExperiencesProps) => {
     };
 
     const currentChapter = CHAPTERS[activeIdx];
-    const progressPercent = Math.round(((activeIdx + 1) / CHAPTERS.length) * 100);
 
     return (
         <section
@@ -321,51 +332,6 @@ const Experiences = ({ className }: ExperiencesProps) => {
         >
             <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-12">
                 <Title title="Expériences & Compétences" className="mb-4" />
-                <p className="text-center text-xs md:text-sm font-mono-label text-[var(--text-muted)] tracking-wide max-w-xl mx-auto">
-                    Découvrez mon parcours interactif au fil du défilement.
-                </p>
-            </div>
-
-            {/* ══════════════════════════════════════════════
-                MOBILE STICKY CONTROL BAR (Pinned on Mobile)
-               ══════════════════════════════════════════════ */}
-            <div className="lg:hidden sticky top-16 z-30 bg-[#0D0B1E]/95 backdrop-blur-xl border-y border-white/10 px-4 py-3 shadow-2xl mb-8">
-                <div className="flex items-center justify-between gap-3 mb-2">
-                    <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 rounded-full bg-[var(--accent-purple)]/20 border border-[var(--accent-purple)]/40 text-[var(--accent-pink)] font-mono-label text-xs font-bold">
-                            {currentChapter.num} / 04
-                        </span>
-                        <span className="font-mono-label font-bold text-white text-xs sm:text-sm truncate">
-                            {currentChapter.title}
-                        </span>
-                    </div>
-                    <span className="font-mono-label text-[11px] text-[var(--accent-mid)] font-bold">
-                        {progressPercent}%
-                    </span>
-                </div>
-                {/* Horizontal Progress Bar */}
-                <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mb-2">
-                    <div
-                        className="h-full bg-[var(--gradient)] transition-all duration-500 ease-out"
-                        style={{ width: `${progressPercent}%` }}
-                    />
-                </div>
-                {/* Quick Dot Jump */}
-                <div className="flex justify-between items-center px-1">
-                    {CHAPTERS.map((ch, i) => (
-                        <button
-                            key={ch.id}
-                            onClick={() => scrollToSection(i)}
-                            className={`text-[10px] font-mono-label px-2 py-1 rounded-md transition-all ${
-                                i === activeIdx
-                                    ? "bg-white/15 text-white font-bold border border-white/20"
-                                    : "text-[var(--text-dim)]"
-                            }`}
-                        >
-                            {ch.num}. {ch.title.split(" ")[0]}
-                        </button>
-                    ))}
-                </div>
             </div>
 
             {/* MAIN LAYOUT WRAPPER (Relative container for sticky positioning) */}
@@ -454,12 +420,15 @@ const Experiences = ({ className }: ExperiencesProps) => {
                         <div className="space-y-2">
                             <div className="flex justify-between text-xs font-mono-label">
                                 <span className="text-[var(--text-dim)]">Progression</span>
-                                <span className="text-[var(--accent-mid)] font-bold">{progressPercent}%</span>
+                                <span className="text-[var(--accent-pink)] font-bold">{scrollProgress}%</span>
                             </div>
-                            <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden p-0.5">
+                            <div className="w-full bg-white/10 h-2.5 rounded-full overflow-hidden p-0.5 border border-white/10">
                                 <div
-                                    className="h-full bg-[var(--gradient)] rounded-full transition-all duration-500 ease-out"
-                                    style={{ width: `${progressPercent}%` }}
+                                    className="h-full rounded-full transition-all duration-150 ease-out shadow-[0_0_12px_rgba(236,72,153,0.5)]"
+                                    style={{
+                                        width: `${scrollProgress}%`,
+                                        background: "linear-gradient(90deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%)",
+                                    }}
                                 />
                             </div>
                         </div>

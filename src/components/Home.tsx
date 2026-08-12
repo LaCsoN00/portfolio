@@ -66,6 +66,14 @@ const Home = () => {
                         id="Home"
                         className="scroll-mt-32 flex flex-col justify-center min-h-[calc(100vh-12rem)]"
                     >
+                        {/* Mobile Profile Photo (At top on mobile screens) */}
+                        <div
+                            ref={mobileRef}
+                            className={`lg:hidden flex justify-center items-center mb-8 py-2 hero-img-anim ${mobileVisible ? 'revealed' : ''}`}
+                        >
+                            <ProfileRing />
+                        </div>
+
                         <div
                             ref={leftRef}
                             className={`flex flex-col items-center md:items-start text-center md:text-left hero-left-anim ${leftVisible ? 'revealed' : ''}`}
@@ -114,14 +122,6 @@ const Home = () => {
                                     Télécharger CV
                                 </a>
                             </div>
-                        </div>
-
-                        {/* Mobile Profile Photo (only visible on mobile screens) */}
-                        <div
-                            ref={mobileRef}
-                            className={`lg:hidden flex justify-center items-center mt-12 py-4 hero-img-anim ${mobileVisible ? 'revealed' : ''}`}
-                        >
-                            <ProfileRing />
                         </div>
                     </section>
 
