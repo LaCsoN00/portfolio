@@ -472,7 +472,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
 
                     {/* BLOCK 01: Parcours Professionnel */}
                     <div
-                        ref={(el) => (sectionRefs.current[0] = el)}
+                        ref={(el) => { sectionRefs.current[0] = el; }}
                         className="scroll-mt-32 space-y-8"
                     >
                         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
@@ -492,7 +492,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
 
                     {/* BLOCK 02: Éducation & Formation */}
                     <div
-                        ref={(el) => (sectionRefs.current[1] = el)}
+                        ref={(el) => { sectionRefs.current[1] = el; }}
                         className="scroll-mt-32 space-y-8"
                     >
                         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
@@ -512,7 +512,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
 
                     {/* BLOCK 03: Certifications & Langues */}
                     <div
-                        ref={(el) => (sectionRefs.current[2] = el)}
+                        ref={(el) => { sectionRefs.current[2] = el; }}
                         className="scroll-mt-32 space-y-8"
                     >
                         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
@@ -544,7 +544,7 @@ const Experiences = ({ className }: ExperiencesProps) => {
 
                     {/* BLOCK 04: Technologies */}
                     <div
-                        ref={(el) => (sectionRefs.current[3] = el)}
+                        ref={(el) => { sectionRefs.current[3] = el; }}
                         className="scroll-mt-32 space-y-8"
                     >
                         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
