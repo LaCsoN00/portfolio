@@ -36,7 +36,7 @@ const About = () => {
                     {/* Image — slides from left */}
                     <div
                         ref={imgRef}
-                        className={`hidden lg:block w-[380px] flex-shrink-0 reveal-left ${imgVisible ? 'revealed' : ''}`}
+                        className={`hidden lg:block w-[380px] flex-shrink-0 sda-reveal ${imgVisible ? 'revealed' : ''}`}
                     >
                         <div className="relative p-1 rounded-2xl bg-[var(--gradient)]">
                             <img
@@ -50,7 +50,7 @@ const About = () => {
                     {/* Text content — slides from right */}
                     <div
                         ref={textRef}
-                        className={`flex-1 max-w-2xl space-y-10 reveal-right ${textVisible ? 'revealed' : ''}`}
+                        className={`flex-1 max-w-2xl space-y-10 sda-reveal ${textVisible ? 'revealed' : ''}`}
                     >
                         <p className="text-sm md:text-base leading-relaxed text-center lg:text-left text-[var(--text-primary)] font-mono-label tracking-wide">
                             <span className="text-[var(--accent-pink)] mr-2">&gt;&gt;</span>
@@ -85,7 +85,7 @@ const AboutCard = ({ section, delay, parentVisible }: AboutCardProps) => {
     return (
         <div
             ref={ref}
-            className={`reveal-hidden ${(isVisible || parentVisible) ? 'revealed' : ''}`}
+            className={`sda-reveal ${(isVisible || parentVisible) ? 'revealed' : ''}`}
             style={{ transitionDelay: `${delay}ms` }}
         >
             <div className="glass-card p-6 flex flex-col md:flex-row items-start md:items-center gap-5 group">

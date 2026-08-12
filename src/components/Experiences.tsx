@@ -118,30 +118,30 @@ const certificationsList = [
     },
 ];
 
-interface ExperienceItemProps {
-    experience: {
-        id: number;
-        role: string;
-        company: string;
-        location?: string;
-        period: string;
-        description: string[];
-        stack?: string;
-        image: string;
-    };
-}
+/* ─────────────────────────────────────────────
+   SUB COMPONENTS
+   ───────────────────────────────────────────── */
 
-const ExperienceCard = ({ experience }: ExperienceItemProps) => {
-    const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
+const SectionLabel = ({ children }: { children: React.ReactNode }) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+    return (
+        <h2
+            ref={ref}
+            className={`text-sm font-bold mb-10 text-[var(--accent-mid)] font-mono-label tracking-widest uppercase text-center lg:text-left sda-reveal ${isVisible ? 'revealed' : ''}`}
+        >
+            {children}
+        </h2>
+    );
+};
+
+const ExperienceCard = ({ experience }: { experience: typeof experiences[0] }) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
     return (
         <div
             ref={ref}
-            className={`relative pl-0 lg:pl-8 reveal-right ${isVisible ? 'revealed' : ''}`}
+            className={`sda-reveal ${isVisible ? 'revealed' : ''}`}
         >
-            {/* Timeline Dot (desktop only) */}
-            <div className="hidden lg:block absolute left-[-6px] top-4 w-3 h-3 rounded-full bg-[var(--gradient)] shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
-            
             <div className="glass-card p-6 group">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
                     <div className="p-2 bg-white/5 rounded-xl w-14 h-14 flex items-center justify-center flex-shrink-0 border border-white/5">
@@ -157,7 +157,13 @@ const ExperienceCard = ({ experience }: ExperienceItemProps) => {
                         </h3>
                         <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
                             <span className="font-semibold font-mono-label text-[var(--text-muted)] tracking-wide">{experience.company}</span>
-                            <span className="text-[var(--text-dim)] hidden sm:inline">•</span>
+                            {experience.location && (
+                                <>
+                                    <span className="text-[var(--text-dim)]">•</span>
+                                    <span className="font-mono-label text-[var(--text-dim)] text-xs">{experience.location}</span>
+                                </>
+                            )}
+                            <span className="text-[var(--text-dim)]">•</span>
                             <span className="font-mono-label text-[var(--accent-mid)] text-xs tracking-wide">{experience.period}</span>
                         </div>
                     </div>
@@ -188,8 +194,8 @@ const ExperienceCard = ({ experience }: ExperienceItemProps) => {
 const EducationCard = ({ edu }: { edu: typeof educationList[0] }) => {
     const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
     return (
-        <div ref={ref} className={`glass-card p-5 reveal-hidden ${isVisible ? 'revealed' : ''}`}>
-            <div className="flex items-start gap-4">
+        <div ref={ref} className={`sda-reveal ${isVisible ? 'revealed' : ''}`}>
+            <div className="glass-card p-5 flex items-start gap-4">
                 <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
                     <GraduationCap className="w-5 h-5" />
                 </div>
@@ -206,8 +212,8 @@ const EducationCard = ({ edu }: { edu: typeof educationList[0] }) => {
 const CertificationCard = ({ cert }: { cert: typeof certificationsList[0] }) => {
     const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
     return (
-        <div ref={ref} className={`glass-card p-5 reveal-hidden ${isVisible ? 'revealed' : ''}`}>
-            <div className="flex items-start gap-4">
+        <div ref={ref} className={`sda-reveal ${isVisible ? 'revealed' : ''}`}>
+            <div className="glass-card p-5 flex items-start gap-4">
                 <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-purple)] flex-shrink-0">
                     <Award className="w-5 h-5" />
                 </div>
@@ -221,90 +227,69 @@ const CertificationCard = ({ cert }: { cert: typeof certificationsList[0] }) => 
     );
 };
 
+const TechIcon = ({ skill, index }: { skill: typeof allTechnologies[0]; index: number }) => {
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+    return (
+        <div
+            ref={ref}
+            className={`flex justify-center items-center flex-col w-20 sda-reveal ${isVisible ? 'revealed' : ''}`}
+            style={{ transitionDelay: `${index * 40}ms` }}
+        >
+            <div className="w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center">
+                {skill.image ? (
+                    <img src={skill.image} alt={skill.name} className="object-contain max-h-full max-w-full" />
+                ) : (
+                    skill.icon
+                )}
+            </div>
+            <span className="mt-2 text-[11px] font-semibold text-center font-mono-label text-[var(--text-muted)] tracking-wide">{skill.name}</span>
+        </div>
+    );
+};
+
+/* ─────────────────────────────────────────────
+   MAIN COMPONENT
+   ───────────────────────────────────────────── */
+
 interface ExperiencesProps {
     className?: string;
 }
 
 const Experiences = ({ className }: ExperiencesProps) => {
-    const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal({ threshold: 0.1 });
-    const { ref: expTitleRef, isVisible: expTitleVisible } = useScrollReveal({ threshold: 0.1 });
-
     return (
         <section id="Experiences" className={`py-32 bg-[var(--bg-deep)] grid-line-bg border-t border-white/5 ${className || ''}`}>
-            <Title title="Expériences & Compétences" className="mb-16" />
+            <Title title="Expériences & Compétences" className="mb-20" />
             
-            <div className="flex flex-col-reverse lg:flex-row justify-center items-start gap-12 max-w-6xl mx-auto px-6 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 relative z-10 space-y-24">
 
-                {/* Rubrique 1: Technologies */}
-                <div
-                    ref={skillsRef}
-                    className={`w-full lg:w-5/12 flex flex-col items-center lg:items-start reveal-left ${skillsVisible ? 'revealed' : ''}`}
-                >
-                    <h2 className="text-sm font-bold mb-8 text-[var(--accent-mid)] font-mono-label tracking-widest uppercase">
-                        &lt;Technologies /&gt;
-                    </h2>
-                    <div className="flex flex-wrap gap-5 justify-center lg:justify-start items-center pt-4 pb-2 overflow-visible">
-                        {allTechnologies.map((skill, i) => (
-                            <div
-                                key={skill.id}
-                                className={`flex justify-center items-center flex-col w-20 reveal-scale ${skillsVisible ? 'revealed' : ''}`}
-                                style={{ transitionDelay: `${i * 40}ms` }}
-                            >
-                                <div
-                                    className="w-16 h-16 p-2 rounded-full border border-[var(--border-glass)] bg-white/5 backdrop-blur-md shadow-lg hover:border-[var(--accent-purple)] hover:scale-110 transition-all duration-300 flex items-center justify-center"
-                                >
-                                    {skill.image ? (
-                                        <img
-                                            src={skill.image}
-                                            alt={skill.name}
-                                            className="object-contain max-h-full max-w-full"
-                                        />
-                                    ) : (
-                                        skill.icon
-                                    )}
-                                </div>
-                                <span className="mt-2 text-[11px] font-semibold text-center font-mono-label text-[var(--text-muted)] tracking-wide">{skill.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Rubrique 2: Parcours Professionnel & Éducation */}
-                <div className="w-full lg:w-7/12 flex flex-col space-y-6">
-                    <h2
-                        ref={expTitleRef}
-                        className={`text-sm font-bold mb-8 text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase reveal-right ${expTitleVisible ? 'revealed' : ''}`}
-                    >
-                        &lt;Parcours Professionnel /&gt;
-                    </h2>
-                    
-                    <div className="relative border-l-0 lg:border-l border-white/10 ml-0 lg:ml-0 space-y-8 pb-4">
+                {/* ── Section 1 : Parcours Professionnel ── */}
+                <div>
+                    <SectionLabel>&lt;Parcours Professionnel /&gt;</SectionLabel>
+                    <div className="space-y-8">
                         {experiences.map((experience) => (
                             <ExperienceCard key={experience.id} experience={experience} />
                         ))}
                     </div>
+                </div>
 
-                    {/* Éducation */}
-                    <div className="pt-8 space-y-6">
-                        <h2 className="text-sm font-bold text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase">
-                            &lt;Éducation & Formation /&gt;
-                        </h2>
-                        <div className="space-y-4">
-                            {educationList.map((edu) => (
-                                <EducationCard key={edu.id} edu={edu} />
-                            ))}
-                        </div>
+                {/* ── Section 2 : Éducation & Formation ── */}
+                <div>
+                    <SectionLabel>&lt;Éducation &amp; Formation /&gt;</SectionLabel>
+                    <div className="space-y-4">
+                        {educationList.map((edu) => (
+                            <EducationCard key={edu.id} edu={edu} />
+                        ))}
                     </div>
+                </div>
 
-                    {/* Certifications & Langues */}
-                    <div className="pt-6 space-y-6">
-                        <h2 className="text-sm font-bold text-[var(--accent-mid)] text-center lg:text-left font-mono-label tracking-widest uppercase">
-                            &lt;Certifications & Langues /&gt;
-                        </h2>
-                        <div className="space-y-4">
-                            {certificationsList.map((cert) => (
-                                <CertificationCard key={cert.id} cert={cert} />
-                            ))}
+                {/* ── Section 3 : Certifications & Langues ── */}
+                <div>
+                    <SectionLabel>&lt;Certifications &amp; Langues /&gt;</SectionLabel>
+                    <div className="space-y-4">
+                        {certificationsList.map((cert) => (
+                            <CertificationCard key={cert.id} cert={cert} />
+                        ))}
+                        <div className="sda-reveal revealed">
                             <div className="glass-card p-5 flex items-center gap-4">
                                 <div className="p-2.5 bg-white/5 rounded-lg text-[var(--accent-pink)] flex-shrink-0">
                                     <Globe className="w-5 h-5" />
@@ -317,14 +302,21 @@ const Experiences = ({ className }: ExperiencesProps) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                {/* ── Section 4 : Technologies ── */}
+                <div>
+                    <SectionLabel>&lt;Technologies /&gt;</SectionLabel>
+                    <div className="flex flex-wrap gap-5 justify-center lg:justify-start items-center">
+                        {allTechnologies.map((skill, i) => (
+                            <TechIcon key={skill.id} skill={skill} index={i} />
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
     )
 }
 
 export default Experiences
-
-
-

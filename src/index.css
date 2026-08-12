@@ -314,20 +314,22 @@ h1, h2, h3, h4 {
 }
 
 /* ========================================
-   SCROLL REVEAL
+   SCROLL REVEAL (IntersectionObserver fallback)
+   Used when animation-timeline: view() is NOT supported
    ======================================== */
-.reveal-hidden {
+.reveal-hidden,
+.sda-reveal {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
 }
-.reveal-hidden.revealed  { opacity:1; transform:translateY(0); }
+.reveal-hidden.revealed,
+.sda-reveal.revealed { opacity:1; transform:translateY(0); }
 
 .reveal-left {
     opacity: 0;
     transform: translateX(-60px);
     transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
-    /* clip to prevent horizontal scrollbar trigger */
     clip-path: inset(0 -100vw 0 0);
 }
 .reveal-left.revealed    { opacity:1; transform:translateX(0); clip-path: inset(0); }
@@ -421,7 +423,7 @@ h1, h2, h3, h4 {
    element's own position in the viewport.
    Plays forward on scroll down, reverse on up.
    Supported: Chrome 115+, Edge 115+, FF 114+
-   Fallback: IntersectionObserver (below)
+   Fallback: IntersectionObserver (above)
    ======================================== */
 @keyframes sda-reveal-up {
     from { opacity: 0; transform: translateY(40px); }
@@ -432,30 +434,47 @@ h1, h2, h3, h4 {
     to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 @supports (animation-timeline: view()) {
-    /* Override all reveal classes with scroll-driven animations */
+    /*
+     * When scroll-driven is supported, CSS takes FULL control.
+     * We override the transitions and the .revealed state so
+     * that only animation-timeline: view() drives visibility.
+     */
+    .sda-reveal,
+    .sda-reveal.revealed,
     .reveal-hidden,
+    .reveal-hidden.revealed,
     .reveal-left,
-    .reveal-right {
+    .reveal-left.revealed,
+    .reveal-right,
+    .reveal-right.revealed {
+        opacity: unset !important;
+        transform: unset !important;
+        clip-path: unset !important;
+        transition: none !important;
         animation: sda-reveal-up linear both;
         animation-timeline: view();
-        animation-range: entry 5% entry 45%;
-        transition: none;
+        animation-range: entry 0% entry 35%;
     }
-    .reveal-scale {
+    .reveal-scale,
+    .reveal-scale.revealed {
+        opacity: unset !important;
+        transform: unset !important;
+        transition: none !important;
         animation: sda-scale-in linear both;
         animation-timeline: view();
-        animation-range: entry 5% entry 50%;
-        transition: none;
+        animation-range: entry 0% entry 40%;
     }
-    /* hero entrance is exempt – it uses its own animation */
+    /* Hero entrance is exempt — it uses its own entrance animation */
     .hero-img-anim,
+    .hero-img-anim.revealed,
     .hero-left-anim .hero-label,
     .hero-left-anim .hero-name,
     .hero-left-anim .hero-role,
     .hero-left-anim .hero-desc,
     .hero-left-anim .hero-cta {
-        animation: unset;
-        animation-timeline: unset;
+        animation: unset !important;
+        animation-timeline: unset !important;
+        animation-range: unset !important;
     }
 }
 
